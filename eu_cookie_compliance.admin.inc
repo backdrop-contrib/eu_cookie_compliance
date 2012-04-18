@@ -1,10 +1,18 @@
 <?php
 
+/**
+ *
+ * Settings form
+ * 
+ * @param type $form_state
+ * @return type 
+ */
+
 function eu_cookie_compliance_admin_form($form_state) {
   
   $form = array();
   
-  $form['eu_cookie_compliance_enabled'] = array(
+  $form['eu_cookie_compliance_popup_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable popup'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_enabled', 0)
@@ -69,6 +77,14 @@ function eu_cookie_compliance_admin_form($form_state) {
     
 }
 
+/**
+ *
+ * Validation for the settings form
+ * 
+ * @param type $form
+ * @param type $form_state 
+ * 
+ */
 
 function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   if (!preg_match('/^[1-9][0-9]{0,4}$/',$form_state['values']['eu_cookie_compliance_popup_height'])) {

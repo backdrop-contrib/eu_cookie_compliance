@@ -98,7 +98,7 @@ function eu_cookie_compliance_init() {
  */
 
 
-function eu_cookie_compliance_access() {
+function eu_cookie_compliance_perm() {
   return array('administer EU Cookie Compliance popup');
 }
 

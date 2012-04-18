@@ -1,6 +1,6 @@
 Drupal.behaviors.eu_cookie_compliance_popup = function(context) {  
   if (!Drupal.settings.eu_cookie_compliance.popup_enabled) return;
-  if (turner_eu_regulation_has_already_agreed()) return; 
+  if (eu_cookie_compliance_has_already_agreed()) return; 
 
   html = Drupal.settings.eu_cookie_compliance.popup_html;
   height = Drupal.settings.eu_cookie_compliance.popup_height;
