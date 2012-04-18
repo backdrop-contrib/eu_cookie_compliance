@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the EU Cookie Compliance module.
+ */
 
 /**
- * Implementation of hook_install
+ * Implementation of hook_install().
  */
 
 function eu_cookie_compliance_install() {
@@ -12,7 +16,7 @@ function eu_cookie_compliance_install() {
 }
 
 /**
- * Implementation of hook_uninstall
+ * Implementation of hook_uninstall().
  */
 
 function eu_cookie_compliance_uninstall() {
@@ -24,4 +28,3 @@ function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_delay');
   variable_del('eu_cookie_compliance_popup_enabled');
 }
-?>

@@ -41,7 +41,7 @@
 
 
 /**
- * Implementation of hook_menu
+ * Implementation of hook_menu().
  * 
  * @return string 
  * 
@@ -62,14 +62,14 @@ function eu_cookie_compliance_menu() {
 
 /**
  *
- * Implementation of hook_init
+ * Implementation of hook_init().
  * 
  * @return type 
  * 
  */
 
 function eu_cookie_compliance_init() {
-  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance').'/css/eu_cookie_compliance.css');
+  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') .'/css/eu_cookie_compliance.css');
 
   $html = '';
   $html .= str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content());
@@ -77,21 +77,19 @@ function eu_cookie_compliance_init() {
   $width = variable_get('eu_cookie_compliance_popup_width', '50%');
   $width = (substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
-  $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
   $variables = array(
-    'popup_enabled' => $enabled,
     'popup_html' => $html,
     'popup_height' => $height,
     'popup_width' => $width,
     'popup_delay' => $delay,  
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
-  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance').'/js/eu_cookie_compliance.js', 'module', 'footer'); 
+  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') .'/js/eu_cookie_compliance.js', 'module', 'footer'); 
 }
 
 /**
  *
- * Implementation of hook_access
+ * Implementation of hook_perm().
  * 
  * @return type 
  * 
@@ -104,7 +102,7 @@ function eu_cookie_compliance_perm() {
 
 /**
  *
- * Implementation of hook_theme
+ * Implementation of hook_theme().
  * 
  * @return type 
  */
@@ -113,7 +111,7 @@ function eu_cookie_compliance_theme() {
     return array(
       'eu_cookie_compliance_popup' => array(          
           'template' => 'eu-cookie-compliance-popup',
-          'arguments' => array('title' => null, 'message' => null, 'link' => null)
+          'arguments' => array('title' => NULL, 'message' => NULL, 'link' => NULL)
         )
     );
 }

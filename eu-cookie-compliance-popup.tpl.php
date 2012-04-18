@@ -1,4 +1,11 @@
-<div>  
+<?php
+/**
+ * @file
+ * Template for the EU Cookie Compliance pop-up.
+ */
+?>
+
+<div>
   <div class ="popup-content">
     <h2><?php print $title ?></h2>
     <p><?php print $message ?></p>
