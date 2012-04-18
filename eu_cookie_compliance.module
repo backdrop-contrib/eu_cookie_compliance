@@ -1,0 +1,134 @@
+<?php
+/**
+ *
+ *
+ * Author: Marcin Pajdzik
+ *
+ *
+ * !variable: inserted as is
+ * @variable: escape plain text to HTML (check_plain)
+ * %variable: escape text and theme as a placeholder for
+ * user-submitted content (check_plain + theme_placeholder)
+ *
+ * Text Output handling functions
+ *
+ * t()                : the placeholders (e.g. '%name' or '@name') are passed as
+ * plain-text and will be escaped when inserted into
+ * the translatable string. You can disable this escaping by using
+ * placeholders of the form '!name'
+ * l()                : the link caption should be passed as plain-text
+ * (unless overridden with the $html parameter).
+ * filter_xss_admin() : For such cases, you can use a regular text-area, and pass
+ * the text through filter_xss_admin() when you output it.
+ * This will allow most HTML tags to pass through, while still blocking possibly
+ * harmful script or styles.
+ * check_plain()      : When outputting plain-text, you need to pass it through check_plain()
+ * before it can be put inside HTML. This will convert quotes, ampersands and
+ * angle brackets into entities, causing the string to be shown literally on screen in the browser.
+ * check_url()        : When using user-submitted URLs in a hyperlink wrap your links with this function
+ * urlencode()        : If you don't, characters like '#' or '?' will disrupt the normal URL semantics.
+ * urlencode() will prevent this by escaping them with %XX syntax
+ * check_markup()     : All you need to do is pass the rich text through check_markup() and you'll get
+ * HTML returned, safe for outputting.
+ * filter_form()      : You should also allow the user to choose the input format with a format widget
+ * through filter_form() and should pass the chosen format along to check_markup().
+ *
+ *
+ * Please see: http://drupal.org/writing-secure-code
+ * Please see: http://drupal.org/coding-standards
+ */
+
+
+
+/**
+ * Implementation of hook_menu
+ * 
+ * @return string 
+ * 
+ */
+
+function eu_cookie_compliance_menu() {
+  $items['admin/settings/eu-cookie-compliance'] = array(
+      'title' => 'EU Cookie Compliance',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('eu_cookie_compliance_admin_form'),
+      'access arguments' => array('administer EU Cookie Compliance popup' ),
+      'file' => 'eu_cookie_compliance.admin.inc',
+      'type' => MENU_NORMAL_ITEM
+      
+  );
+  return $items;
+}
+
+/**
+ *
+ * Implementation of hook_init
+ * 
+ * @return type 
+ * 
+ */
+
+function eu_cookie_compliance_init() {
+  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance').'/css/eu_cookie_compliance.css');
+
+  $html = '';
+  $html .= str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content());
+  $height = (int) variable_get('eu_cookie_compliance_popup_height', 200);
+  $width = variable_get('eu_cookie_compliance_popup_width', '50%');
+  $width = (substr($width, -1) == '%') ? $width : (int) $width;
+  $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
+  $enabled = variable_get('eu_cookie_compliance_enabled', 0);
+  $variables = array(
+    'popup_enabled' => $enabled,
+    'popup_html' => $html,
+    'popup_height' => $height,
+    'popup_width' => $width,
+    'popup_delay' => $delay,  
+  );
+  drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
+  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance').'/js/eu_cookie_compliance.js', 'module', 'footer'); 
+}
+
+/**
+ *
+ * Implementation of hook_access
+ * 
+ * @return type 
+ * 
+ */
+
+
+function eu_cookie_compliance_access() {
+  return array('administer EU Cookie Compliance popup');
+}
+
+/**
+ *
+ * Implementation of hook_theme
+ * 
+ * @return type 
+ */
+
+function eu_cookie_compliance_theme() {
+    return array(
+      'eu_cookie_compliance_popup' => array(          
+          'template' => 'eu-cookie-compliance-popup',
+          'arguments' => array('title' => null, 'message' => null, 'link' => null)
+        )
+    );
+}
+
+/**
+ *
+ * Provides content for EU regulation popup
+ * 
+ * @return type 
+ */
+
+function eu_cookie_compliance_get_popup_content() {
+  $title = filter_xss_admin(variable_get('eu_cookie_compliance_popup_title', '')); 
+  $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_message', ''));
+  $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
+  $output = theme('eu_cookie_compliance_popup', $title, $message, $link);
+  return $output;
+}

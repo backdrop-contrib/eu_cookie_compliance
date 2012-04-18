@@ -1,0 +1,17 @@
+<?php
+function eu_cookie_compliance_install() {
+  variable_set('eu_cookie_compliance_popup_title', 'Cookie Compliance');
+  variable_set('eu_cookie_compliance_popup_message', '
+	This site uses cookies to store information on your computer. Some of these cookies are essential to make our site work and others help us to improve by giving us some insight into how the site is being used.
+  ');
+}
+
+function eu_cookie_compliance_uninstall() {
+  variable_del('eu_cookie_compliance_popup_title');
+  variable_del('eu_cookie_compliance_popup_message');
+  variable_del('eu_cookie_compliance_popup_link');
+  variable_del('eu_cookie_compliance_popup_height');
+  variable_del('eu_cookie_compliance_popup_width');
+  variable_del('eu_cookie_compliance_popup_delay');
+}
+?>
