@@ -14,7 +14,7 @@
 #sliding-popup .popup-content { 
   display: block; 
   width: 100%; 
-  overflow:scroll;  
+  overflow: auto;  
 }
 
 #sliding-popup .popup-content p, #sliding-popup .popup-content h2 { 
