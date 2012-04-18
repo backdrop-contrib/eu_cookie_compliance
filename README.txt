@@ -11,6 +11,7 @@ Installation
 ========
 1. Unzip the files to the "sites/all/modules" directory and enable the module.
 2. If desired, give the administer EU Cookie Compliance popup permissions that allow users of certain roles access the administration page. You can do so on the admin/user/permissions page.
-3. Go to the admin/settings/eu-cookie-compliance page to configure and enable the pop-up
-4. If you want to theme your pop-up override the eu-cookie-compliance-popup.tpl.php template file.
+3. You may want to create a page that would explain how your site uses cookies. Alternatively, if you have a privacy policy, you can link the pop-up to that page (see next step).
+4. Go to the admin/settings/eu-cookie-compliance page to configure and enable the pop-up
+5. If you want to theme your pop-up override the eu-cookie-compliance-popup.tpl.php template file.
 
