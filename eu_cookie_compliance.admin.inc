@@ -7,7 +7,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable popup'),
-    '#default_value' => variable_get('eu_cookie_compliance_enabled', 0)
+    '#default_value' => variable_get('eu_cookie_compliance_popup_enabled', 0)
   );
   
   $form['eu_cookie_compliance_popup_title'] = array(

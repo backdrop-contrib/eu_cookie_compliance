@@ -1,4 +1,6 @@
-Drupal.behaviors.eu_cookie_compliance_popup = function(context) {   
+Drupal.behaviors.eu_cookie_compliance_popup = function(context) {  
+  if (!Drupal.settings.eu_cookie_compliance.popup_enabled) return;
+  if (turner_eu_regulation_has_already_agreed()) return; 
 
   html = Drupal.settings.eu_cookie_compliance.popup_html;
   height = Drupal.settings.eu_cookie_compliance.popup_height;
@@ -10,10 +12,6 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
 }
 
 function eu_cookie_compliance_create_popup(html, height, delay) {
-  // Exit if the current browser has already received the popup, or 
-  // the browser is not supported (IE6).
-  if (eu_cookie_compliance_has_already_agreed())
-    return;
 
   var popup = $(html)
     .attr({ "id": "sliding-popup" })
@@ -27,13 +25,13 @@ function eu_cookie_compliance_create_popup(html, height, delay) {
 }
 
   function eu_cookie_compliance_has_already_agreed() { 
-    return document.cookie.indexOf("cookie-agreed") > -1; 
+    return document.cookie.indexOf("cookie-compliance-agreed") > -1; 
   }
 
   function eu_cookie_compliance_has_agreed() { 
     var date = new Date(); 
     date.setDate(date.getDate() + 100); 
-    document.cookie = "cookie-agreed=true;expires=" + date.toUTCString() + ";path=/";
+    document.cookie = "cookie-compliance-agreed=true;expires=" + date.toUTCString() + ";path=/";
     delay = Drupal.settings.eu_cookie_compliance.popup_delay;
     eu_cookie_compliance_destroy_popup(delay)
   }
