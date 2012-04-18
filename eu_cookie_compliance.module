@@ -77,7 +77,9 @@ function eu_cookie_compliance_init() {
   $width = variable_get('eu_cookie_compliance_popup_width', '50%');
   $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
+  $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
   $variables = array(
+    'popup_enabled' => $html,
     'popup_html' => $html,
     'popup_height' => $height,
     'popup_width' => $width,
