@@ -1,43 +1,29 @@
 <?php
-/**
- * @file
- * Administration setting form for EU Cookie Comliance module.
- */
-
-/**
- *
- * Settings form
- *
- * @param type $form_state
- * @return type
- */
 
 function eu_cookie_compliance_admin_form($form_state) {
-
+  
   $form = array();
-
-  $form['eu_cookie_compliance_popup_enabled'] = array(
+  
+  $form['eu_cookie_compliance_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable popup'),
-    '#default_value' => variable_get('eu_cookie_compliance_popup_enabled', 0)
+    '#default_value' => variable_get('eu_cookie_compliance_enabled', 0)
   );
-
-  $form['eu_cookie_compliance_popup_title'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Popup title'),
-    '#default_value' => variable_get('eu_cookie_compliance_popup_title', ''),
-    '#size' => 60,
-    '#maxlength' => 220,
-    '#required' => TRUE,
-  );
-
-  $form['eu_cookie_compliance_popup_message'] = array(
+  
+  $form['eu_cookie_compliance_popup_info'] = array(
     '#type' => 'textarea',
     '#title' => t('Popup message'),
-    '#default_value' => variable_get('eu_cookie_compliance_popup_message', ''),
+    '#default_value' => variable_get('eu_cookie_compliance_popup_info', ''),
     '#required' => TRUE
   );
-
+  
+    $form['eu_cookie_compliance_popup_agreed'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Popup message'),
+    '#default_value' => variable_get('eu_cookie_compliance_popup_agreed', ''),
+    '#required' => TRUE
+  );
+  
   $form['eu_cookie_compliance_popup_link'] = array(
     '#type' => 'textfield',
     '#title' => t('Private policy link'),
@@ -45,9 +31,9 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 60,
     '#maxlength' => 220,
     '#required' => TRUE,
-    '#description' => 'Enter link to your privacy policy or other page that will explain cookies to your users.'
-  );
-
+    '#description' => 'Enter link to your privacy policy or other page that will explain cookies to your users.'  
+  );  
+  
   $form['eu_cookie_compliance_popup_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup height in pixels'),
@@ -56,7 +42,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#maxlength' => 5,
     '#required' => TRUE,
   );
-
+  
   $form['eu_cookie_compliance_popup_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup width in pixels or a percentage value'),
@@ -64,9 +50,9 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 5,
     '#maxlength' => 5,
     '#required' => TRUE,
-    '#description' => 'Enter desired width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%'
+    '#description' => 'Enter desired width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%'  
   );
-
+  
   $form['eu_cookie_compliance_popup_delay'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup time delay in seconds'),
@@ -75,22 +61,15 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#maxlength' => 5,
     '#required' => TRUE,
   );
-
-  return system_settings_form($form);
-
+  
+  
+  return system_settings_form($form); 
+    
 }
 
-/**
- *
- * Validation for the settings form
- *
- * @param type $form
- * @param type $form_state
- *
- */
 
 function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
-  if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_popup_height'])) {
+  if (!preg_match('/^[1-9][0-9]{0,4}$/',$form_state['values']['eu_cookie_compliance_popup_height'])) {
     form_set_error('eu_cookie_compliance_popup_height', t('Height must be an integer value.'));
   }
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_popup_delay'])) {
