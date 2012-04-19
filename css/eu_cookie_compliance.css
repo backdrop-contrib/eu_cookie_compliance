@@ -2,16 +2,15 @@
   display: block;
   right: 0;
   margin: 0;
-  padding: 20px 20px 0px 20px; 
+  padding: 10px; 
   position: fixed;
   width: 100%;
-  background-color: #AAA;
   z-index: 99999;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  background: url('../images/transparent.png') right top repeat;
 }
 
-#sliding-popup .popup-content { 
+#sliding-popup .popup-content {
+  color: #ccc;
   display: block; 
   width: 100%; 
   overflow: auto;  
