@@ -78,6 +78,7 @@ function eu_cookie_compliance_init() {
   $width = (substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
   $enabled = variable_get('eu_cookie_compliance_enabled', 0);
+  $link = variable_get('eu_cookie_compliance_popup_link', NULL);
   $variables = array(
     'popup_enabled' => $enabled,
     'popup_html_info' => $html_info,
@@ -85,7 +86,7 @@ function eu_cookie_compliance_init() {
     'popup_height' => $height,
     'popup_width' => $width,
     'popup_delay' => $delay,
-    'popup_delay' => $enabled,
+    'popup_link' => $link,
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
   drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance').'/js/eu_cookie_compliance.js', 'module', 'footer'); 
