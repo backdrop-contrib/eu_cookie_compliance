@@ -6,11 +6,17 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   
   if (!action) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_info;
+    alert('here');
+    $('a').click(function(){
+      eu_cookie_compliance_has_agreed(1);
+    });
   } else if(action == 1) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
+
   } else {
     return;
   }
+  
 
   height = Drupal.settings.eu_cookie_compliance.popup_height;
   width = Drupal.settings.eu_cookie_compliance.popup_width;
@@ -54,3 +60,6 @@ function eu_cookie_compliance_has_agreed(value) {
 function eu_cookie_compliance_destroy_popup(delay) {
   $("#sliding-popup").animate({ bottom: $("#sliding-popup").height() * -1 }, delay, function () { $("#sliding-popup").remove(); })
 }
+
+
+
