@@ -2,13 +2,13 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   enabled = Drupal.settings.eu_cookie_compliance.popup_enabled;
   if(!enabled) return
   
-  action = eu_cookie_compliance_has_already_agreed();
+  action = Drupal.eu_cookie_compliance.getStatus();
   
   if (!action) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_info;
-    alert('here');
+
     $('a').click(function(){
-      eu_cookie_compliance_has_agreed(1);
+      Drupal.eu_cookie_compliance.changeStatus(1);
     });
   } else if(action == 1) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
@@ -17,15 +17,15 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
     return;
   }
   
-
   height = Drupal.settings.eu_cookie_compliance.popup_height;
   width = Drupal.settings.eu_cookie_compliance.popup_width;
   delay = Drupal.settings.eu_cookie_compliance.popup_delay;
-  eu_cookie_compliance_create_popup(html, height, delay);
- 
+  Drupal.eu_cookie_compliance.createPopup(html, height, delay);
 }
 
-function eu_cookie_compliance_create_popup(html, height, delay) {
+Drupal.eu_cookie_compliance = {};
+
+Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
 
   var popup = $(html)
     .attr({ "id": "sliding-popup" })
@@ -36,9 +36,19 @@ function eu_cookie_compliance_create_popup(html, height, delay) {
     .appendTo("body");
 
   popup.show().animate( { bottom: 0 }, delay);
+  $('.find-more-button', popup).click(function(){
+    window.open(Drupal.settings.eu_cookie_compliance.popup_link);
+  });
+  $('.agree-button', popup).click(function(){
+    Drupal.eu_cookie_compliance.changeStatus(1);
+  });
+  $('.hide-popup-button', popup).click(function(){
+    Drupal.eu_cookie_compliance.changeStatus(2);
+  });
+  
 }
 
-function eu_cookie_compliance_has_already_agreed() { 
+Drupal.eu_cookie_compliance.getStatus = function() { 
   search = 'cookie-agreed=';
   offset = document.cookie.indexOf(search);
   if (offset < 1) return 0;
@@ -49,15 +59,15 @@ function eu_cookie_compliance_has_already_agreed() {
   return value;
 }
 
-function eu_cookie_compliance_has_agreed(value) { 
+Drupal.eu_cookie_compliance.changeStatus = function(value) { 
   var date = new Date(); 
   date.setDate(date.getDate() + 100); 
   document.cookie = "cookie-agreed="+value+";expires=" + date.toUTCString() + ";path=/";
-  eu_cookie_compliance_destroy_popup(Drupal.settings.eu_cookie_compliance.popup_delay)
+  Drupal.eu_cookie_compliance.destroyPopup(Drupal.settings.eu_cookie_compliance.popup_delay)
   Drupal.behaviors.eu_cookie_compliance_popup();
 }
 
-function eu_cookie_compliance_destroy_popup(delay) {
+Drupal.eu_cookie_compliance.destroyPopup = function(delay) {
   $("#sliding-popup").animate({ bottom: $("#sliding-popup").height() * -1 }, delay, function () { $("#sliding-popup").remove(); })
 }
 
