@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @file
+ * Installation file.
+ *
+ */
+
 function eu_cookie_compliance_install() {
   variable_set('eu_cookie_compliance_popup_info', '
     <h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>
@@ -17,4 +24,3 @@ function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_width');
   variable_del('eu_cookie_compliance_popup_delay');
 }
-?>

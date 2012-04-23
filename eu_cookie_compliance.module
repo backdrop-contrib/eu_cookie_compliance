@@ -41,7 +41,7 @@
 
 
 /**
- * Implementation of hook_menu
+ * Implementation of hook_menu().
  * 
  * @return string 
  * 
@@ -62,20 +62,20 @@ function eu_cookie_compliance_menu() {
 
 /**
  *
- * Implementation of hook_init
+ * Implementation of hook_init().
  * 
  * @return type 
  * 
  */
 
 function eu_cookie_compliance_init() {
-  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance').'/css/eu_cookie_compliance.css');
+  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') .'/css/eu_cookie_compliance.css');
 
   $html_info = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('info'));
   $html_agreed = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('agreed'));
   $height = (int) variable_get('eu_cookie_compliance_popup_height', 200);
   $width = variable_get('eu_cookie_compliance_popup_width', '50%');
-  $width = (substr($width, -1) == '%') ? $width : (int) $width;
+  $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
   $enabled = variable_get('eu_cookie_compliance_enabled', 0);
   $link = variable_get('eu_cookie_compliance_popup_link', NULL);
@@ -89,12 +89,12 @@ function eu_cookie_compliance_init() {
     'popup_link' => $link,
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
-  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance').'/js/eu_cookie_compliance.js', 'module', 'footer'); 
+  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') .'/js/eu_cookie_compliance.js', 'module', 'footer'); 
 }
 
 /**
  *
- * Implementation of hook_access
+ * Implementation of hook_access().
  * 
  * @return type 
  * 
@@ -107,7 +107,7 @@ function eu_cookie_compliance_access() {
 
 /**
  *
- * Implementation of hook_theme
+ * Implementation of hook_theme().
  * 
  * @return type 
  */
@@ -119,12 +119,12 @@ function eu_cookie_compliance_theme() {
   return array(
     'eu_cookie_compliance_popup_info' => array(          
       'template' => 'eu-cookie-compliance-popup-info',
-      'arguments' => array('message' => null, 'link' => null),
+      'arguments' => array('message' => NULL, 'link' => NULL),
       'path' => $path
     ),
     'eu_cookie_compliance_popup_agreed' => array(          
       'template' => 'eu-cookie-compliance-popup-agreed',
-      'arguments' => array('message' => null, 'link' => null),
+      'arguments' => array('message' => NULL, 'link' => NULL),
       'path' => $path
     ),
   );
@@ -138,8 +138,8 @@ function eu_cookie_compliance_theme() {
  */
 
 function eu_cookie_compliance_get_popup_content($type) {    
-  $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_' .$type, ''));
+  $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_' . $type, ''));
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
-  $output = theme('eu_cookie_compliance_popup_' .$type, $message, $link);
+  $output = theme('eu_cookie_compliance_popup_' . $type, $message, $link);
   return $output;
 }
