@@ -5,7 +5,6 @@
  * Communications that comes into effect in the UK on 26th May 2012.
  *
  * Author: Marcin Pajdzik
- *
  */
 
 /**
@@ -16,10 +15,9 @@ function eu_cookie_compliance_menu() {
       'title' => 'EU Cookie Compliance',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('eu_cookie_compliance_admin_form'),
-      'access arguments' => array('administer EU Cookie Compliance popup' ),
+      'access arguments' => array('administer EU Cookie Compliance popup'),
       'file' => 'eu_cookie_compliance.admin.inc',
-      'type' => MENU_NORMAL_ITEM
-      
+      'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -28,7 +26,7 @@ function eu_cookie_compliance_menu() {
  * Implements hook_init().
  */
 function eu_cookie_compliance_init() {
-  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') .'/css/eu_cookie_compliance.css');
+  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
 
   $html_info = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('info'));
   $html_agreed = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('agreed'));
@@ -48,7 +46,7 @@ function eu_cookie_compliance_init() {
     'popup_link' => $link,
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
-  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') .'/js/eu_cookie_compliance.js', 'module', 'footer'); 
+  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer'); 
 }
 
 /**
@@ -63,7 +61,7 @@ function eu_cookie_compliance_access() {
  */
 function eu_cookie_compliance_theme() {
   
-  $path = drupal_get_path( 'module', 'eu_cookie_compliance' ) . '/theme';
+  $path = drupal_get_path('module', 'eu_cookie_compliance') . '/theme';
   
   return array(
     'eu_cookie_compliance_popup_info' => array(          
