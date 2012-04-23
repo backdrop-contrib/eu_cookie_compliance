@@ -5,12 +5,12 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   }
   status = Drupal.eu_cookie_compliance.getStatus();
   if (!status) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_info;    
+    html = Drupal.settings.eu_cookie_compliance.popup_html_info;
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
   } else if(status == 1) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;    
+    html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
   } else {
     return;
   }
@@ -33,7 +33,7 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
     .hide()
     .appendTo("body");
 
-  popup.show().animate( { bottom: 0 }, delay);
+  popup.show().animate({ bottom: 0 }, delay);
   $('.find-more-button', popup).click(function(){
     window.open(Drupal.settings.eu_cookie_compliance.popup_link);
   });
@@ -48,10 +48,14 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
 Drupal.eu_cookie_compliance.getStatus = function() {
   search = 'cookie-agreed=';
   offset = document.cookie.indexOf(search);
-  if (offset < 1) return 0;
+  if (offset < 1) {
+    return 0;
+  }
   offset += search.length;
   end = document.cookie.indexOf(';', offset);
-  if (end == -1) end = document.cookie.length;
+  if (end == -1) {
+    end = document.cookie.length;
+  }
   value = document.cookie.substring(offset, end);
   return value;
 }
@@ -70,6 +74,8 @@ Drupal.eu_cookie_compliance.destroyPopup = function(delay) {
 
 Drupal.eu_cookie_compliance.hasAgreed = function() {
   status = Drupal.eu_cookie_compliance.getStatus();
-  if(status == 1 || status == 2) return true;
+  if(status == 1 || status == 2) {
+    return true;
+  }
   return false;
 }
