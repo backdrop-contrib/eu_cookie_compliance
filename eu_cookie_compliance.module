@@ -1,14 +1,15 @@
 <?php
 /**
- * This module intends to deal with the EU Directive on Privacy and Electronic 
+ * @file
+ * This module intends to deal with the EU Directive on Privacy and Electronic
  * Communications that comes into effect in the UK on 26th May 2012.
- * 
+ *
  * Author: Marcin Pajdzik
- * 
+ *
  */
 
 /**
- * Implementation of hook_menu().
+ * Implementats hook_menu().
  */
 function eu_cookie_compliance_menu() {
   $items['admin/settings/eu-cookie-compliance'] = array(
@@ -24,7 +25,7 @@ function eu_cookie_compliance_menu() {
 }
 
 /**
- * Implementation of hook_init().
+ * Implements hook_init().
  */
 function eu_cookie_compliance_init() {
   drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') .'/css/eu_cookie_compliance.css');
@@ -51,19 +52,15 @@ function eu_cookie_compliance_init() {
 }
 
 /**
- * Implementation of hook_access().
+ * Implements hook_access().
  */
 function eu_cookie_compliance_access() {
   return array('administer EU Cookie Compliance popup');
 }
 
 /**
- *
- * Implementation of hook_theme().
- * 
- * @return type 
+ * Implements hook_theme().
  */
-
 function eu_cookie_compliance_theme() {
   
   $path = drupal_get_path( 'module', 'eu_cookie_compliance' ) . '/theme';
@@ -72,23 +69,19 @@ function eu_cookie_compliance_theme() {
     'eu_cookie_compliance_popup_info' => array(          
       'template' => 'eu-cookie-compliance-popup-info',
       'arguments' => array('message' => NULL, 'link' => NULL),
-      'path' => $path
+      'path' => $path,
     ),
     'eu_cookie_compliance_popup_agreed' => array(          
       'template' => 'eu-cookie-compliance-popup-agreed',
       'arguments' => array('message' => NULL, 'link' => NULL),
-      'path' => $path
+      'path' => $path,
     ),
   );
 }
 
 /**
- *
- * Provides content for EU regulation popup
- * 
- * @return type 
+ * Provides content for EU regulation popups.
  */
-
 function eu_cookie_compliance_get_popup_content($type) {    
   $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_' . $type, ''));
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
