@@ -3,7 +3,10 @@
 /**
  * @file
  * Installation file.
- *
+ */
+
+/**
+ * Implementation of hook_install().
  */
 
 function eu_cookie_compliance_install() {
@@ -15,6 +18,10 @@ function eu_cookie_compliance_install() {
     <h2>Thank you for accepting cookies</h2>
   ');
 }
+
+/**
+ * Implementation of hook_uninstall().
+ */
 
 function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_info');
