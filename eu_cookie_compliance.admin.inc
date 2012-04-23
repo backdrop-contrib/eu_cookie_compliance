@@ -2,7 +2,12 @@
 /**
  * @file
  * This file provides administration form for the module.
+ */
+
+/**
  *
+ * @param type $form_state
+ * @return type 
  */
 
 function eu_cookie_compliance_admin_form($form_state) {
@@ -12,21 +17,21 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable popup'),
-    '#default_value' => variable_get('eu_cookie_compliance_enabled', 0)
+    '#default_value' => variable_get('eu_cookie_compliance_enabled', 0),
   );
 
   $form['eu_cookie_compliance_popup_info'] = array(
     '#type' => 'textarea',
     '#title' => t('Popup message - requests consent'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_info', ''),
-    '#required' => TRUE
+    '#required' => TRUE,
   );
 
   $form['eu_cookie_compliance_popup_agreed'] = array(
     '#t?>ype' => 'textarea',
     '#title' => t('Popup message - thanks for giving consent'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_agreed', ''),
-    '#required' => TRUE
+    '#required' => TRUE,
   );
 
   $form['eu_cookie_compliance_popup_link'] = array(
@@ -36,7 +41,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 60,
     '#maxlength' => 220,
     '#required' => TRUE,
-    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users.')
+    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users.'),
   );
 
   $form['eu_cookie_compliance_popup_height'] = array(
@@ -55,7 +60,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 5,
     '#maxlength' => 5,
     '#required' => TRUE,
-    '#description' => t('Enter desired width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%')
+    '#description' => t('Enter desired width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%'),
   );
 
   $form['eu_cookie_compliance_popup_delay'] = array(
@@ -70,6 +75,11 @@ function eu_cookie_compliance_admin_form($form_state) {
   return system_settings_form($form);
 }
 
+/**
+ *
+ * @param type $form
+ * @param type $form_state 
+ */
 
 function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_popup_height'])) {
