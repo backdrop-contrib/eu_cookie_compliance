@@ -29,27 +29,22 @@
 
 #sliding-popup .popup-content #popup-text {
   color: #fff;
-  float: left;  
+  float: left;
   font-weight: bold;
   margin: 10px 0px 10px 50px;
   text-align: left;
   width: 600px;
 }
 
-
-
-#sliding-popup .popup-content #popup-text h2 {
-  margin: 0 0 5px 0;
+#sliding-popup .popup-content #popup-text h2,
+#sliding-popup .popup-content #popup-text p {
+  color: #fff;
+  display: block;  
   font-size: 16px;
   font-weight: bold;
-  display: block;
-  color: #fff;
+  margin: 0 0 5px 0;
 }
 
 #sliding-popup .popup-content #popup-text p {
-  margin: 0;
   font-size: 12px;
-  display: block;
-  font-weight: bold;
-  color: #fff;
 }
