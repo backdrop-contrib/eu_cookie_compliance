@@ -7,7 +7,6 @@
 /**
  * Provides form for cookie control popup.
  */
-
 function eu_cookie_compliance_admin_form($form_state) {
 
   $form = array();
