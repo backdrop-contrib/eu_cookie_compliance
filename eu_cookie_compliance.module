@@ -59,7 +59,7 @@ function eu_cookie_compliance_access() {
 /**
  * Implements hook_theme().
  */
-function eu_cookie_compliance_theme() {  
+function eu_cookie_compliance_theme() {
   $path = drupal_get_path('module', 'eu_cookie_compliance') . '/theme';
   return array(
     'eu_cookie_compliance_popup_info' => array(
