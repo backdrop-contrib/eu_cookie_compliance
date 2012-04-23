@@ -1,22 +1,21 @@
-Drupal.behaviors.eu_cookie_compliance_popup = function(context) {   
+Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   enabled = Drupal.settings.eu_cookie_compliance.popup_enabled;
-  if(!enabled) return
+  if(!enabled) return;
 
   status = Drupal.eu_cookie_compliance.getStatus();
   
   if (!status) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_info;
-
+    
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
   } else if(status == 1) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
-
+    html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;    
   } else {
     return;
   }
-  
+
   height = Drupal.settings.eu_cookie_compliance.popup_height;
   width = Drupal.settings.eu_cookie_compliance.popup_width;
   delay = Drupal.settings.eu_cookie_compliance.popup_delay;
@@ -45,10 +44,9 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
   $('.hide-popup-button', popup).click(function(){
     Drupal.eu_cookie_compliance.changeStatus(2);
   });
-  
 }
 
-Drupal.eu_cookie_compliance.getStatus = function() { 
+Drupal.eu_cookie_compliance.getStatus = function() {
   search = 'cookie-agreed=';
   offset = document.cookie.indexOf(search);
   if (offset < 1) return 0;
@@ -59,9 +57,9 @@ Drupal.eu_cookie_compliance.getStatus = function() {
   return value;
 }
 
-Drupal.eu_cookie_compliance.changeStatus = function(value) { 
-  var date = new Date(); 
-  date.setDate(date.getDate() + 100); 
+Drupal.eu_cookie_compliance.changeStatus = function(value) {
+  var date = new Date();
+  date.setDate(date.getDate() + 100);
   document.cookie = "cookie-agreed="+value+";expires=" + date.toUTCString() + ";path=/";
   Drupal.eu_cookie_compliance.destroyPopup(Drupal.settings.eu_cookie_compliance.popup_delay)
   Drupal.behaviors.eu_cookie_compliance_popup();
@@ -76,5 +74,3 @@ Drupal.eu_cookie_compliance.hasAgreed = function() {
   if(status == 1 || status == 2) return true;
   return false;
 }
-
-
