@@ -17,14 +17,14 @@ function eu_cookie_compliance_admin_form($form_state) {
 
   $form['eu_cookie_compliance_popup_info'] = array(
     '#type' => 'textarea',
-    '#title' => t('Popup message'),
+    '#title' => t('Popup message - requests consent'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_info', ''),
     '#required' => TRUE
   );
 
-    $form['eu_cookie_compliance_popup_agreed'] = array(
+  $form['eu_cookie_compliance_popup_agreed'] = array(
     '#t?>ype' => 'textarea',
-    '#title' => t('Popup message'),
+    '#title' => t('Popup message - thanks for giving consent'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_agreed', ''),
     '#required' => TRUE
   );

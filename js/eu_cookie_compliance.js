@@ -1,16 +1,16 @@
 Drupal.behaviors.eu_cookie_compliance_popup = function(context) {   
   enabled = Drupal.settings.eu_cookie_compliance.popup_enabled;
   if(!enabled) return
+
+  status = Drupal.eu_cookie_compliance.getStatus();
   
-  action = Drupal.eu_cookie_compliance.getStatus();
-  
-  if (!action) {
+  if (!status) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_info;
 
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
-  } else if(action == 1) {
+  } else if(status == 1) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
 
   } else {
@@ -71,5 +71,10 @@ Drupal.eu_cookie_compliance.destroyPopup = function(delay) {
   $("#sliding-popup").animate({ bottom: $("#sliding-popup").height() * -1 }, delay, function () { $("#sliding-popup").remove(); })
 }
 
+Drupal.eu_cookie_compliance.hasAgreed = function() {
+  status = Drupal.eu_cookie_compliance.getStatus();
+  if(status == 1 || status == 2) return true;
+  return false;
+}
 
 
