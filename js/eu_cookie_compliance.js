@@ -1,12 +1,11 @@
 Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   enabled = Drupal.settings.eu_cookie_compliance.popup_enabled;
-  if(!enabled) return;
-
+  if(!enabled) {
+    return;
+  }
   status = Drupal.eu_cookie_compliance.getStatus();
-  
   if (!status) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_info;
-    
+    html = Drupal.settings.eu_cookie_compliance.popup_html_info;    
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
