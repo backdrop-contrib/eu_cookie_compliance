@@ -2,7 +2,7 @@ EU Cookie Compliance 6.x - 1.x
 ==============================
 
 This module intends to deal with the EU Directive on Privacy and Electronic 
-Communications that comes into effect on 26th May 2012. 
+Communications that comes into effect on 26th May 2012.
 From that date, if you are not compliant or visibly working towards compliance, 
 you run the risk of enforcement action, which can include a fine of up to 
 half a million pounds for a serious breach.
