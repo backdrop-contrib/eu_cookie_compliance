@@ -9,12 +9,16 @@
  * Implements hook_install().
  */
 function eu_cookie_compliance_install() {
-  variable_set('eu_cookie_compliance_popup_info', '
-    <h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>
-  ');
-  variable_set('eu_cookie_compliance_popup_agreed', '
-    <h2>Thank you for accepting cookies</h2>
-  ');
+  $popup_info = array(
+    'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
+    'format' => "2",
+  );
+  $popup_agree = array(
+     'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
+     'format' => "2",      
+  );  
+  variable_set('eu_cookie_compliance_popup_info', $popup_info);
+  variable_set('eu_cookie_compliance_popup_agreed', $popup_agree);
 }
 
 /**
@@ -27,4 +31,5 @@ function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_height');
   variable_del('eu_cookie_compliance_popup_width');
   variable_del('eu_cookie_compliance_popup_delay');
+  variable_del('eu_cookie_compliance_popup_enabled');
 }

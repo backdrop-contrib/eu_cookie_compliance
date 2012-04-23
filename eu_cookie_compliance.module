@@ -27,14 +27,13 @@ function eu_cookie_compliance_menu() {
  */
 function eu_cookie_compliance_init() {
   drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
-
   $html_info = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('info'));
   $html_agreed = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('agreed'));
-  $height = (int) variable_get('eu_cookie_compliance_popup_height', 200);
-  $width = variable_get('eu_cookie_compliance_popup_width', '50%');
+  $height = (int) variable_get('eu_cookie_compliance_popup_height', 70);
+  $width = variable_get('eu_cookie_compliance_popup_width', '100%');
   $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
-  $enabled = variable_get('eu_cookie_compliance_enabled', 0);
+  $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
   $link = variable_get('eu_cookie_compliance_popup_link', NULL);
   $variables = array(
     'popup_enabled' => $enabled,
@@ -79,8 +78,8 @@ function eu_cookie_compliance_theme() {
  * Provides content for EU regulation popups.
  */
 function eu_cookie_compliance_get_popup_content($type) {
-  $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_' . $type, ''));
+  $text = variable_get('eu_cookie_compliance_popup_' . $type, '');
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
-  $output = theme('eu_cookie_compliance_popup_' . $type, $message, $link);
+  $output = theme('eu_cookie_compliance_popup_' . $type, filter_xss_admin($text['value']), $link);
   return $output;
 }
