@@ -8,16 +8,16 @@
  */
 
 /**
- * Implementats hook_menu().
+ * Implements hook_menu().
  */
 function eu_cookie_compliance_menu() {
   $items['admin/settings/eu-cookie-compliance'] = array(
-      'title' => 'EU Cookie Compliance',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('eu_cookie_compliance_admin_form'),
-      'access arguments' => array('administer EU Cookie Compliance popup'),
-      'file' => 'eu_cookie_compliance.admin.inc',
-      'type' => MENU_NORMAL_ITEM,
+    'title' => 'EU Cookie Compliance',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('eu_cookie_compliance_admin_form'),
+    'access arguments' => array('administer EU Cookie Compliance popup'),
+    'file' => 'eu_cookie_compliance.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -46,7 +46,7 @@ function eu_cookie_compliance_init() {
     'popup_link' => $link,
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
-  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer'); 
+  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');
 }
 
 /**
@@ -64,12 +64,12 @@ function eu_cookie_compliance_theme() {
   $path = drupal_get_path('module', 'eu_cookie_compliance') . '/theme';
   
   return array(
-    'eu_cookie_compliance_popup_info' => array(          
+    'eu_cookie_compliance_popup_info' => array(
       'template' => 'eu-cookie-compliance-popup-info',
       'arguments' => array('message' => NULL, 'link' => NULL),
       'path' => $path,
     ),
-    'eu_cookie_compliance_popup_agreed' => array(          
+    'eu_cookie_compliance_popup_agreed' => array(
       'template' => 'eu-cookie-compliance-popup-agreed',
       'arguments' => array('message' => NULL, 'link' => NULL),
       'path' => $path,
@@ -80,7 +80,7 @@ function eu_cookie_compliance_theme() {
 /**
  * Provides content for EU regulation popups.
  */
-function eu_cookie_compliance_get_popup_content($type) {    
+function eu_cookie_compliance_get_popup_content($type) {
   $message = filter_xss_admin(variable_get('eu_cookie_compliance_popup_' . $type, ''));
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
   $output = theme('eu_cookie_compliance_popup_' . $type, $message, $link);
