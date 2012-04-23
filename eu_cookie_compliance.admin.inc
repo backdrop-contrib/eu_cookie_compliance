@@ -8,40 +8,42 @@
  * Provides form for cookie control popup.
  */
 function eu_cookie_compliance_admin_form($form_state) {
-  
+
   $popup_info = variable_get('eu_cookie_compliance_popup_info', array('value' => '', 'format' => NULL));
   $popup_agreed = variable_get('eu_cookie_compliance_popup_agreed', array('value' => '', 'format' => NULL));
-  //print_r($popup_info); die;
+
   $form['eu_cookie_compliance_popup_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable popup'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_enabled', 0),
   );
-  
+
   $form['eu_cookie_compliance_popup_info'] = array(
     '#type'  => 'item',
     '#tree'   => TRUE,
   );
-  
+
   $form['eu_cookie_compliance_popup_info']['value'] = array(
     '#type' => 'textarea',
     '#title' => t('Popup message - requests consent'),
     '#default_value' => $popup_info['value'],
     '#required' => TRUE,
   );
+
   $form['eu_cookie_compliance_popup_info']['format'] = filter_form($popup_info['format'], NULL, array('eu_cookie_compliance_popup_info', 'format'));
 
   $form['eu_cookie_compliance_popup_agreed'] = array(
     '#type'  => 'item',
     '#tree'   => TRUE,
   );
-  
+
   $form['eu_cookie_compliance_popup_agreed']['value'] = array(
     '#type' => 'textarea',
     '#title' => t('Popup message - thanks for giving consent'),
     '#default_value' => $popup_agreed['value'],
     '#required' => TRUE,
   );
+
   $form['eu_cookie_compliance_popup_agreed']['format'] = filter_form($popup_agreed['format'], NULL, array('eu_cookie_compliance_popup_agreed', 'format'));
 
   $form['eu_cookie_compliance_popup_link'] = array(

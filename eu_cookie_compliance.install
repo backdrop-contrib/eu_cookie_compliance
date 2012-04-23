@@ -14,9 +14,9 @@ function eu_cookie_compliance_install() {
     'format' => "2",
   );
   $popup_agree = array(
-     'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
-     'format' => "2",      
-  );  
+    'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
+    'format' => "2",
+  );
   variable_set('eu_cookie_compliance_popup_info', $popup_info);
   variable_set('eu_cookie_compliance_popup_agreed', $popup_agree);
 }
