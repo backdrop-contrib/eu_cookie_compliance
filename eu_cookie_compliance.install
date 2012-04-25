@@ -10,11 +10,11 @@
  */
 function eu_cookie_compliance_install() {
   $popup_info = array(
-    'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
+    'value' => st('<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>'),
     'format' => "2",
   );
   $popup_agree = array(
-    'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
+    'value' => st('<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>'),
     'format' => "2",
   );
   variable_set('eu_cookie_compliance_popup_info', $popup_info);
