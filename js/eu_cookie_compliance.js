@@ -26,14 +26,14 @@ Drupal.eu_cookie_compliance = {};
 Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
 
   var popup = $(html)
-    .attr({ "id": "sliding-popup" })
+    .attr({"id": "sliding-popup"})
     .css({"bottom": -1 * height})
     .height(height)
     .width(width)
     .hide()
     .appendTo("body");
 
-  popup.show().animate({ bottom: 0 }, delay);
+  popup.show().animate({bottom: 0}, delay);
   $('.find-more-button', popup).click(function(){
     window.open(Drupal.settings.eu_cookie_compliance.popup_link);
   });
@@ -69,7 +69,7 @@ Drupal.eu_cookie_compliance.changeStatus = function(value) {
 }
 
 Drupal.eu_cookie_compliance.destroyPopup = function(delay) {
-  $("#sliding-popup").animate({ bottom: $("#sliding-popup").height() * -1 }, delay, function () { $("#sliding-popup").remove(); })
+  $("#sliding-popup").animate({bottom: $("#sliding-popup").height() * -1}, delay, function () {$("#sliding-popup").remove();})
 }
 
 Drupal.eu_cookie_compliance.hasAgreed = function() {
