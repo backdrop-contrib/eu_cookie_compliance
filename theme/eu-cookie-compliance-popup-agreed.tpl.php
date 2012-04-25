@@ -19,8 +19,8 @@
       <?php print $message ?>
     </div>
     <div id="popup-buttons">
-      <button type="button" class="hide-popup-button">Hide this message</button>
-      <button type="button" class="find-more-button" >More information on cookies</button>
+      <button type="button" class="hide-popup-button"><?php t("Hide this message"); ?> </button>
+      <button type="button" class="find-more-button" ><?php t("More information on cookies"); ?></button>
     </div>
   </div>
 </div>
