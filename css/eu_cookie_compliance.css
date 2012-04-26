@@ -11,6 +11,8 @@
 }
 
 #sliding-popup .popup-content {
+  background-color: transparent;
+  border: 0 none;
   display: inline-block;
   margin: 0 auto;
   width: 1076px;
