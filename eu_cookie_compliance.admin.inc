@@ -20,9 +20,9 @@ function eu_cookie_compliance_admin_form($form_state) {
 
   $form['eu_cookie_compliance_popup_position'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Place the pop-up at the top'),
+    '#title' => t('Place the pop-up at the top of the website'),
     '#default_value' => variable_get('eu_cookie_compliance_popup_position', 0),
-    '#description' => t('By default the pop-up appears at the bottom. Tick this box if you want it to appear on the top of your website instead'),
+    '#description' => t('By default the pop-up appears at the bottom of the website. Tick this box if you want it to appear at the top'),
   );
 
   $form['eu_cookie_compliance_popup_info'] = array(
