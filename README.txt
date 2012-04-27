@@ -10,12 +10,11 @@ half a million pounds for a serious breach.
 How it works.
 =============
 
-The module displays a pup-up at the bottom of website to make users aware of the 
-fact that cookies are being set. The user may then give his/her consent or move 
-to a page that provides more details. Consent is given by user pressing the 
-agree buttons or by continuing browsing the website.
-
-Once consent is given another popup appears with a thank you message.
+The module displays a pup-up at the bottom or at the top of website to make 
+users aware of the fact that cookies are being set. The user may then give 
+his/her consent or move to a page that provides more details. Consent is given 
+by user pressing the agree buttons or by continuing browsing the website. Once 
+consent is given another pop-up appears with a thank you message.
 
 The module provides a settings page where the pop-up can be customised. There 
 are also template files for the pop-ups that can be overridden by your theme. 
@@ -36,8 +35,7 @@ page (see next step).
 4. Go to the admin/settings/eu-cookie-compliance page to configure and enable 
 the pop-up
 
-5. If you want to theme your pop-up override the 
-eu-cookie-compliance-popup.tpl.php template file.
+5. If you want to theme your pop-up override the themes in the template file.
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies 
 from being set.
