@@ -82,6 +82,6 @@ function eu_cookie_compliance_theme() {
 function eu_cookie_compliance_get_popup_content($type) {
   $text = variable_get('eu_cookie_compliance_popup_' . $type, '');
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
-  $output = theme('eu_cookie_compliance_popup_' . $type, check_markup($text['value']), $link);
+  $output = theme('eu_cookie_compliance_popup_' . $type, check_markup($text['value'], $text['format']), $link);
   return $output;
 }
