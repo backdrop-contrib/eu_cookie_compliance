@@ -44,7 +44,7 @@ function eu_cookie_compliance_init() {
     'popup_width' => $width,
     'popup_delay' => $delay,
     'popup_link' => $link,
-    'popup_position' => $position,      
+    'popup_position' => $position,
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
   drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');

@@ -9,10 +9,10 @@
  *
  * agree-button      - agree to setting cookies
  * find-more-button  - link to an information page
- * 
+ *
  * Variables available:
  * - $message:  Contains the text that will be display whithin the pop-up
- * - $link:     Contains a link to an information page (not used in the original 
+ * - $link:     Contains a link to an information page (not used in the original
  *              template as JQuery redirects to the information page on clinking
  *              the find-more button. $link is available though in case you want
  *              to overrride the template and display the link another way.
