@@ -8,8 +8,14 @@
  * the following classes to assign actions to buttons:
  *
  * agree-button      - agree to setting cookies
- * hide-popup-button - destroy the pop-up
- * find-more-button  - link to information page
+ * find-more-button  - link to an information page
+ * 
+ * Variables available:
+ * - $message:  Contains the text that will be display whithin the pop-up
+ * - $link:     Contains a link to an information page (not used in the original 
+ *              template as JQuery redirects to the information page on clinking
+ *              the find-more button. $link is available though in case you want
+ *              to overrride the template and display the link another way.
  */
 ?>
 
