@@ -4,7 +4,7 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
     return;
   }
   status = Drupal.eu_cookie_compliance.getStatus();
-  if (!status) {
+  if (status==0) {
     html = Drupal.settings.eu_cookie_compliance.popup_html_info;
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
