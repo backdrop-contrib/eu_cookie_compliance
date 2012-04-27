@@ -34,6 +34,7 @@ function eu_cookie_compliance_init() {
   $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
   $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
   $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
+  $position = variable_get('eu_cookie_compliance_popup_position', 0);
   $link = variable_get('eu_cookie_compliance_popup_link', NULL);
   $variables = array(
     'popup_enabled' => $enabled,
@@ -43,6 +44,7 @@ function eu_cookie_compliance_init() {
     'popup_width' => $width,
     'popup_delay' => $delay,
     'popup_link' => $link,
+    'popup_position' => $position,      
   );
   drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
   drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');
@@ -80,6 +82,6 @@ function eu_cookie_compliance_theme() {
 function eu_cookie_compliance_get_popup_content($type) {
   $text = variable_get('eu_cookie_compliance_popup_' . $type, '');
   $link = check_url(variable_get('eu_cookie_compliance_popup_link', ''));
-  $output = theme('eu_cookie_compliance_popup_' . $type, filter_xss_admin($text['value']), $link);
+  $output = theme('eu_cookie_compliance_popup_' . $type, check_markup($text['value']), $link);
   return $output;
 }

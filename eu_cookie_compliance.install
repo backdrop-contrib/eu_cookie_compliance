@@ -33,4 +33,5 @@ function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_width');
   variable_del('eu_cookie_compliance_popup_delay');
   variable_del('eu_cookie_compliance_popup_enabled');
+  variable_del('eu_cookie_compliance_popup_position');
 }

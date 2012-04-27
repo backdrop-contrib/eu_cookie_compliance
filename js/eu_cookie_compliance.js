@@ -18,20 +18,34 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   height = Drupal.settings.eu_cookie_compliance.popup_height;
   width = Drupal.settings.eu_cookie_compliance.popup_width;
   delay = Drupal.settings.eu_cookie_compliance.popup_delay;
-  Drupal.eu_cookie_compliance.createPopup(html, height, delay);
+  position = Drupal.settings.eu_cookie_compliance.popup_position;
+
+  Drupal.eu_cookie_compliance.createPopup(html, height, delay, position);
 }
 
 Drupal.eu_cookie_compliance = {};
 
-Drupal.eu_cookie_compliance.createPopup = function(html, height, delay) {
+Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position) {
 
   var popup = $(html)
     .attr({"id": "sliding-popup"})
-    .css({"bottom": -1 * height})
     .height(height)
     .width(width)
     .hide()
-    .appendTo("body");
+
+  if(position) {
+    popup.show()
+      .attr({"class": "sliding-popup-top"})
+      .css({"top": -1 * height})
+      .prependTo("body")
+      .animate({top: 0}, delay)
+  } else {
+    popup.show()
+      .attr({"class": "sliding-popup-bottom"})
+      .css({"bottom": -1 * height})
+      .animate({bottom: 0}, delay)
+      .appendTo("body");
+  }
 
   popup.show().animate({bottom: 0}, delay);
   $('.find-more-button', popup).click(function(){

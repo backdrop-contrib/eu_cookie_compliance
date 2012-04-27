@@ -1,13 +1,20 @@
 #sliding-popup {
-  background: url('../images/gradient.png') center center scroll repeat-y transparent;
   display: block;
   margin: 0;
   padding: 0px;
-  position: fixed;
   right: 0;
   text-align: center;
   width: 100%;
   z-index: 99999;
+}
+.sliding-popup-bottom {
+  background: url('../images/gradient.png') center center scroll repeat-y transparent;
+  position: fixed;
+}
+
+.sliding-popup-top {
+  background-color: #000;
+  position: relative;
 }
 
 #sliding-popup .popup-content {
@@ -15,12 +22,13 @@
   border: 0 none;
   display: inline-block;
   margin: 0 auto;
+  padding: 0;
   width: 1076px;
 }
 
 #sliding-popup .popup-content #popup-buttons {
   float: right;
-  margin: 15px 50px 15px 0;
+  margin: 10px 50px 10px 0;
 }
 
 #sliding-popup .popup-content #popup-buttons button {
@@ -33,7 +41,7 @@
   color: #fff;
   float: left;
   font-weight: bold;
-  margin: 10px 0px 10px 50px;
+  margin: 5px 0 5px 50px;
   text-align: left;
   width: 600px;
 }

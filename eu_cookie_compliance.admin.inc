@@ -18,6 +18,13 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#default_value' => variable_get('eu_cookie_compliance_popup_enabled', 0),
   );
 
+  $form['eu_cookie_compliance_popup_position'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Place the pop-up at the top'),
+    '#default_value' => variable_get('eu_cookie_compliance_popup_position', 0),
+    '#description' => t('By default the pop-up appears at the bottom. Tick this box if you want it to appear on the top of your website instead'),
+  );
+
   $form['eu_cookie_compliance_popup_info'] = array(
     '#type'  => 'item',
     '#tree'   => TRUE,
@@ -59,7 +66,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_popup_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup height in pixels'),
-    '#default_value' => variable_get('eu_cookie_compliance_popup_height', 70),
+    '#default_value' => variable_get('eu_cookie_compliance_popup_height', 50),
     '#size' => 5,
     '#maxlength' => 5,
     '#required' => TRUE,
