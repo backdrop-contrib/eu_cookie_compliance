@@ -47,7 +47,6 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position
       .appendTo("body");
   }
 
-  popup.show().animate({bottom: 0}, delay);
   $('.find-more-button', popup).click(function(){
     window.open(Drupal.settings.eu_cookie_compliance.popup_link);
   });
