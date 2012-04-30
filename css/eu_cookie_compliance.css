@@ -28,11 +28,11 @@
 
 #sliding-popup .popup-content #popup-buttons {
   float: right;
-  margin: 10px 50px 10px 0;
+  margin: 10px 30px 10px 0;
 }
 
 #sliding-popup .popup-content #popup-buttons button {
-  display: table-cell;
+  display: inline;
   margin-right: 5px;
   vertical-align: middle;
 }
