@@ -26,7 +26,6 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
 Drupal.eu_cookie_compliance = {};
 
 Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position) {
-
   var popup = $(html)
     .attr({"id": "sliding-popup"})
     .height(height)
