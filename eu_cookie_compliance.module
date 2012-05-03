@@ -51,7 +51,7 @@ function eu_cookie_compliance_init() {
 }
 
 /**
- * Implements hook_access().
+ * Implements hook_perm().
  */
 function eu_cookie_compliance_perm() {
   return array('administer EU Cookie Compliance popup');
