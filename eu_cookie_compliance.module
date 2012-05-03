@@ -13,6 +13,7 @@
 function eu_cookie_compliance_menu() {
   $items['admin/settings/eu-cookie-compliance'] = array(
     'title' => 'EU Cookie Compliance',
+    'description' => 'Make your website compliant with the EU Directive on Privacy and Electronic Communications.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('eu_cookie_compliance_admin_form'),
     'access arguments' => array('administer EU Cookie Compliance popup'),
