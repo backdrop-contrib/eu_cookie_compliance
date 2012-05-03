@@ -26,28 +26,39 @@ function eu_cookie_compliance_menu() {
  * Implements hook_init().
  */
 function eu_cookie_compliance_init() {
-  drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
-  $html_info = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('info'));
-  $html_agreed = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('agreed'));
-  $height = (int) variable_get('eu_cookie_compliance_popup_height', 70);
-  $width = variable_get('eu_cookie_compliance_popup_width', '100%');
-  $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
-  $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
-  $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
-  $position = variable_get('eu_cookie_compliance_popup_position', 0);
-  $link = variable_get('eu_cookie_compliance_popup_link', NULL);
-  $variables = array(
-    'popup_enabled' => $enabled,
-    'popup_html_info' => $html_info,
-    'popup_html_agreed' => $html_agreed,
-    'popup_height' => $height,
-    'popup_width' => $width,
-    'popup_delay' => $delay,
-    'popup_link' => $link,
-    'popup_position' => $position,
-  );
-  drupal_add_js(array('eu_cookie_compliance' => $variables), "setting");
-  drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');
+  if (variable_get('eu_cookie_compliance_popup_enabled', 0)) {
+    drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
+    drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');
+  }
+}
+
+/**
+ * Implements hook_footer().
+ */
+
+function eu_cookie_compliance_footer() {
+  if (variable_get('eu_cookie_compliance_popup_enabled', 0)) {
+    $html_info = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('info'));
+    $html_agreed = str_replace(array("\r", "\n"), '', eu_cookie_compliance_get_popup_content('agreed'));
+    $height = (int) variable_get('eu_cookie_compliance_popup_height', 70);
+    $width = variable_get('eu_cookie_compliance_popup_width', '100%');
+    $width = (drupal_substr($width, -1) == '%') ? $width : (int) $width;
+    $delay = 1000 * (int) variable_get('eu_cookie_compliance_popup_delay', 1);
+    $enabled = variable_get('eu_cookie_compliance_popup_enabled', 0);
+    $position = variable_get('eu_cookie_compliance_popup_position', 0);
+    $link = variable_get('eu_cookie_compliance_popup_link', NULL);
+    $variables = array(
+      'popup_enabled' => $enabled,
+      'popup_html_info' => $html_info,
+      'popup_html_agreed' => $html_agreed,
+      'popup_height' => $height,
+      'popup_width' => $width,
+      'popup_delay' => $delay,
+      'popup_link' => $link,
+      'popup_position' => $position,
+    );
+    drupal_add_js(array('eu_cookie_compliance' => $variables), "setting", 'footer');
+  }
 }
 
 /**
