@@ -31,14 +31,14 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position
     .attr({"id": "sliding-popup"})
     .height(height)
     .width(width)
-    .hide()
+    .hide();
 
   if(position) {
     popup.show()
       .attr({"class": "sliding-popup-top"})
       .css({"top": -1 * height})
       .prependTo("body")
-      .animate({top: 0}, delay)
+      .animate({top: 0}, delay);
   } else {
     popup.show()
       .attr({"class": "sliding-popup-bottom"})
