@@ -9,23 +9,48 @@
  * Implements hook_install().
  */
 function eu_cookie_compliance_install() {
-  $t = get_t();
-  $popup_info = array(
-    'value' => $t('<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>'),
-    'format' => "2",
+  $popup_settings = array(
+    'popup_info' => array(
+      'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
+      'format' => "2",
+    ),
+    'popup_agreed' => array(
+      'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
+      'format' => "2",
+    ),
   );
-  $popup_agree = array(
-    'value' => $t('<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>'),
-    'format' => "2",
-  );
-  variable_set('eu_cookie_compliance_popup_info', $popup_info);
-  variable_set('eu_cookie_compliance_popup_agreed', $popup_agree);
+  global $language;
+  $lang = ($language->language) ? $language->language : 'en';
+  variable_set('eu_cookie_compliance_' . $language->language, $popup_settings);
 }
 
 /**
  * Implements hook_uninstall().
  */
 function eu_cookie_compliance_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE '%eu_cookie_compliance_%'");
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * Implements hook_update_n().
+ */
+function eu_cookie_compliance_update_6100() {
+  $popup_settings = array();
+  $popup_settings = array(
+    'popup_info' => variable_get('eu_cookie_compliance_popup_info', ''),
+    'popup_agreed' => variable_get('eu_cookie_compliance_popup_agreed', ''),
+    'popup_link' => variable_get('eu_cookie_compliance_popup_link', ''),
+    'popup_height' => variable_get('eu_cookie_compliance_popup_height', 50),
+    'popup_width' => variable_get('eu_cookie_compliance_popup_width', '100%'),
+    'popup_delay' => variable_get('eu_cookie_compliance_popup_delay', 1),
+    'popup_enabled' => variable_get('eu_cookie_compliance_popup_enabled', 0),
+    'popup_position' => variable_get('eu_cookie_compliance_popup_position', 0),
+  );
+  global $language;
+  $lang = ($language->language) ? $language->language : 'en';
+  variable_set('eu_cookie_compliance_' . $language->language, '');
+
   variable_del('eu_cookie_compliance_popup_info');
   variable_del('eu_cookie_compliance_popup_agreed');
   variable_del('eu_cookie_compliance_popup_link');
@@ -33,5 +58,5 @@ function eu_cookie_compliance_uninstall() {
   variable_del('eu_cookie_compliance_popup_width');
   variable_del('eu_cookie_compliance_popup_delay');
   variable_del('eu_cookie_compliance_popup_enabled');
-  variable_del('eu_cookie_compliance_popup_position');
+  variable_del('eu_cookie_compliance_popup_position');  
 }
