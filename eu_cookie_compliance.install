@@ -21,7 +21,7 @@ function eu_cookie_compliance_install() {
   );
   global $language;
   $lang = ($language->language) ? $language->language : 'en';
-  variable_set('eu_cookie_compliance_' . $language->language, $popup_settings);
+  variable_set('eu_cookie_compliance_' . $lang, $popup_settings);
 }
 
 /**
@@ -36,7 +36,6 @@ function eu_cookie_compliance_uninstall() {
  * Implements hook_update_n().
  */
 function eu_cookie_compliance_update_6100() {
-  $popup_settings = array();
   $popup_settings = array(
     'popup_info' => variable_get('eu_cookie_compliance_popup_info', ''),
     'popup_agreed' => variable_get('eu_cookie_compliance_popup_agreed', ''),
@@ -49,7 +48,7 @@ function eu_cookie_compliance_update_6100() {
   );
   global $language;
   $lang = ($language->language) ? $language->language : 'en';
-  variable_set('eu_cookie_compliance_' . $language->language, '');
+  variable_set('eu_cookie_compliance_' . $lang, $popup_settings);
 
   variable_del('eu_cookie_compliance_popup_info');
   variable_del('eu_cookie_compliance_popup_agreed');

@@ -12,12 +12,11 @@ function eu_cookie_compliance_admin_form($form_state) {
   global $language;
   $ln = $language->language;
   $popup_settings = eu_cookie_compliance_get_settings();
-   
   $form['eu_cookie_compliance_' . $ln] = array (
     '#type'  => 'item',
     '#tree'   => TRUE,
   );
-  
+
   if (module_exists('locale')) {
     $form['eu_cookie_compliance_' . $ln]['#title'] = t('You are editing settings for the %language language.', array('%language' => $language->name));
   }
