@@ -58,7 +58,7 @@ Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position
 }
 
 Drupal.eu_cookie_compliance.getStatus = function() {
-  search = 'cookie-agreed=';
+  search = 'cookie-agreed-'+Drupal.settings.eu_cookie_compliance.popup_language+'=';
   offset = document.cookie.indexOf(search);
   if (offset < 1) {
     return 0;
@@ -75,7 +75,7 @@ Drupal.eu_cookie_compliance.getStatus = function() {
 Drupal.eu_cookie_compliance.changeStatus = function(value) {
   var date = new Date();
   date.setDate(date.getDate() + 100);
-  document.cookie = "cookie-agreed="+value+";expires=" + date.toUTCString() + ";path=/";
+  document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+value+";expires=" + date.toUTCString() + ";path=/";
   Drupal.eu_cookie_compliance.destroyPopup(Drupal.settings.eu_cookie_compliance.popup_delay)
   Drupal.behaviors.eu_cookie_compliance_popup();
 }

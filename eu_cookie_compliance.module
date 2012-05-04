@@ -41,6 +41,7 @@ function eu_cookie_compliance_init() {
 function eu_cookie_compliance_footer() {
   $popup_settings = eu_cookie_compliance_get_settings();
   if ($popup_settings['popup_enabled']) {
+    global $language;
     $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
     $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
     $html_info = theme('eu_cookie_compliance_popup_info', check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE));
@@ -54,6 +55,7 @@ function eu_cookie_compliance_footer() {
       'popup_delay' => $popup_settings['popup_delay'],
       'popup_link' => $popup_settings['popup_link'],
       'popup_position' => $popup_settings['popup_position'],
+      'popup_language' => $language->language,
     );
     drupal_add_js(array('eu_cookie_compliance' => $variables), "setting", 'footer');
   }

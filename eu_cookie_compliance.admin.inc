@@ -15,12 +15,11 @@ function eu_cookie_compliance_admin_form($form_state) {
    
   $form['eu_cookie_compliance_' . $ln] = array (
     '#type'  => 'item',
-    '#title' => t('You are editing settings for the %language language', array('%language' => $language->name)),
     '#tree'   => TRUE,
   );
   
   if (module_exists('locale')) {
-    //$form['eu_cookie_compliance_' . $ln]['#title'] = t('You are editing settings for the %language language', array('%language' => $language->name));
+    $form['eu_cookie_compliance_' . $ln]['#title'] = t('You are editing settings for the %language language.', array('%language' => $language->name));
   }
 
   $form['eu_cookie_compliance_' . $ln]['popup_enabled'] = array(
