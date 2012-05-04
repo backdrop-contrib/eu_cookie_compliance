@@ -3,61 +3,57 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   if(!enabled) {
     return;
   }
-  status = Drupal.eu_cookie_compliance.getStatus();
+  status = Drupal.eu_cookie_compliance.getCurrentStatus();
   if (status == 0) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_info;
     $('a').click(function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
+    Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_info);
   } else if(status == 1) {
-    html = Drupal.settings.eu_cookie_compliance.popup_html_agreed;
+    Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_agreed);
   } else {
     return;
   }
-
-  height = Drupal.settings.eu_cookie_compliance.popup_height;
-  width = Drupal.settings.eu_cookie_compliance.popup_width;
-  delay = Drupal.settings.eu_cookie_compliance.popup_delay;
-  position = Drupal.settings.eu_cookie_compliance.popup_position;
-
-  Drupal.eu_cookie_compliance.createPopup(html, height, delay, position);
 }
 
 Drupal.eu_cookie_compliance = {};
 
-Drupal.eu_cookie_compliance.createPopup = function(html, height, delay, position) {
+Drupal.eu_cookie_compliance.createPopup = function(html) {
   var popup = $(html)
     .attr({"id": "sliding-popup"})
-    .height(height)
-    .width(width)
+    .height(Drupal.settings.eu_cookie_compliance.popup_height)
+    .width(Drupal.settings.eu_cookie_compliance.popup_width)
     .hide();
 
-  if(position) {
+  if(Drupal.settings.eu_cookie_compliance.popup_position) {
     popup.show()
       .attr({"class": "sliding-popup-top"})
-      .css({"top": -1 * height})
+      .css({"top": -1 * Drupal.settings.eu_cookie_compliance.popup_height})
       .prependTo("body")
-      .animate({top: 0}, delay);
+      .animate({top: 0}, Drupal.settings.eu_cookie_compliance.popup_delay);
   } else {
     popup.show()
       .attr({"class": "sliding-popup-bottom"})
-      .css({"bottom": -1 * height})
-      .animate({bottom: 0}, delay)
+      .css({"bottom": -1 * Drupal.settings.eu_cookie_compliance.popup_height})
+      .animate({bottom: 0}, Drupal.settings.eu_cookie_compliance.popup_delay)
       .appendTo("body");
   }
+  Drupal.eu_cookie_compliance.attachEvents();
+}
 
-  $('.find-more-button', popup).click(function(){
+Drupal.eu_cookie_compliance.attachEvents = function() {
+  $('.find-more-button').click(function(){
     window.open(Drupal.settings.eu_cookie_compliance.popup_link);
   });
-  $('.agree-button', popup).click(function(){
+  $('.agree-button').click(function(){
     Drupal.eu_cookie_compliance.changeStatus(1);
   });
-  $('.hide-popup-button', popup).click(function(){
+  $('.hide-popup-button').click(function(){
     Drupal.eu_cookie_compliance.changeStatus(2);
   });
 }
 
-Drupal.eu_cookie_compliance.getStatus = function() {
+Drupal.eu_cookie_compliance.getCurrentStatus = function() {
   search = 'cookie-agreed-'+Drupal.settings.eu_cookie_compliance.popup_language+'=';
   offset = document.cookie.indexOf(search);
   if (offset < 1) {
@@ -69,23 +65,41 @@ Drupal.eu_cookie_compliance.getStatus = function() {
     end = document.cookie.length;
   }
   value = document.cookie.substring(offset, end);
-  return value;
+  return parseInt(value);
 }
 
 Drupal.eu_cookie_compliance.changeStatus = function(value) {
+  status = Drupal.eu_cookie_compliance.getCurrentStatus();
+  if (status == value) return;
+  if(Drupal.settings.eu_cookie_compliance.popup_position) {
+    $(".sliding-popup-top").animate({top: $("#sliding-popup").height() * -1}, Drupal.settings.eu_cookie_compliance.popup_delay, function () {
+      if(status == 0) {
+        $("#sliding-popup").html(Drupal.settings.eu_cookie_compliance.popup_html_agreed).animate({top: 0}, Drupal.settings.eu_cookie_compliance.popup_delay);
+        Drupal.eu_cookie_compliance.attachEvents();
+      }
+      if(status == 1) {
+        $("#sliding-popup").remove();
+      }
+    })
+  } else {
+    $(".sliding-popup-bottom").animate({bottom: $("#sliding-popup").height() * -1}, Drupal.settings.eu_cookie_compliance.popup_delay, function () {
+      if(status == 0) {
+        $("#sliding-popup").html(Drupal.settings.eu_cookie_compliance.popup_html_agreed).animate({bottom: 0}, Drupal.settings.eu_cookie_compliance.popup_delay)
+        Drupal.eu_cookie_compliance.attachEvents();
+      }
+      if(status == 1) {
+        $("#sliding-popup").remove();
+      }
+    ;})
+  }
   var date = new Date();
   date.setDate(date.getDate() + 100);
-  document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+value+";expires=" + date.toUTCString() + ";path=/";
-  Drupal.eu_cookie_compliance.destroyPopup(Drupal.settings.eu_cookie_compliance.popup_delay)
-  Drupal.behaviors.eu_cookie_compliance_popup();
+  document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+value+";expires=" + date.toUTCString() + ";path=/";  
 }
 
-Drupal.eu_cookie_compliance.destroyPopup = function(delay) {
-  $("#sliding-popup").animate({bottom: $("#sliding-popup").height() * -1}, delay, function () {$("#sliding-popup").remove();})
-}
 
 Drupal.eu_cookie_compliance.hasAgreed = function() {
-  status = Drupal.eu_cookie_compliance.getStatus();
+  status = Drupal.eu_cookie_compliance.getCurrentStatus();
   if(status == 1 || status == 2) {
     return true;
   }
