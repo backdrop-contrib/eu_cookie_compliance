@@ -70,7 +70,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 60,
     '#maxlength' => 220,
     '#required' => TRUE,
-    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users.'),
+    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend http:// '),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_height'] = array(
