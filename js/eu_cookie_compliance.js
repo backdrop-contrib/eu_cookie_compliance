@@ -24,19 +24,23 @@ Drupal.eu_cookie_compliance.createPopup = function(html) {
     .height(Drupal.settings.eu_cookie_compliance.popup_height)
     .width(Drupal.settings.eu_cookie_compliance.popup_width)
     .hide();
+    
+
 
   if(Drupal.settings.eu_cookie_compliance.popup_position) {
+    popup.prependTo("body");
+    height = popup.height();
     popup.show()
       .attr({"class": "sliding-popup-top"})
-      .css({"top": -1 * Drupal.settings.eu_cookie_compliance.popup_height})
-      .prependTo("body")
+      .css({"top": -1 * height})
       .animate({top: 0}, Drupal.settings.eu_cookie_compliance.popup_delay);
   } else {
+    popup.appendTo("body");
+    height = popup.height();
     popup.show()
       .attr({"class": "sliding-popup-bottom"})
-      .css({"bottom": -1 * Drupal.settings.eu_cookie_compliance.popup_height})
+      .css({"bottom": -1 * height})
       .animate({bottom: 0}, Drupal.settings.eu_cookie_compliance.popup_delay)
-      .appendTo("body");
   }
   Drupal.eu_cookie_compliance.attachEvents();
 }
