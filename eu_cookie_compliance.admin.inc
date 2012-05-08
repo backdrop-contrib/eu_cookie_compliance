@@ -69,16 +69,18 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 60,
     '#maxlength' => 220,
     '#required' => TRUE,
-    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend http:// '),
+    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend http://'),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup height in pixels'),
-    '#default_value' => ($popup_settings['popup_height']) ? $popup_settings['popup_height'] : 50,
+    '#default_value' => ($popup_settings['popup_height']) ? $popup_settings['popup_height'] : '',
     '#size' => 5,
     '#maxlength' => 5,
-    '#required' => TRUE,
+    '#required' => FALSE,
+    '#description' => t('Enter an integer value for a desired height in pixels or leave empty for automatically adjusted height'),
+  
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_width'] = array(
@@ -88,7 +90,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 5,
     '#maxlength' => 5,
     '#required' => TRUE,
-    '#description' => t('Enter desired width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%'),
+    '#description' => t('Set the width of the popup. This can be either an integer value or percentage of the screen width. For example: 200 or 50%'),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_delay'] = array(
@@ -110,8 +112,8 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   global $language;
   $ln = $language-> language;
   //print_r($form_state); die;
-  if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_height'])) {
-    form_set_error('eu_cookie_compliance_popup_height', t('Height must be an integer value.'));
+  if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_height']) && !empty($form_state['values']['eu_cookie_compliance_' . $ln]['popup_height'])) {
+    form_set_error('eu_cookie_compliance_popup_height', t('Height must be an integer value .'));
   }
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_delay'])) {
     form_set_error('eu_cookie_compliance_popup_delay', t('Delay must be an integer value.'));
