@@ -29,8 +29,9 @@ function eu_cookie_compliance_menu() {
 function eu_cookie_compliance_init() {
   $enabled = eu_cookie_compliance_get_settings('popup_enabled');
   if ($enabled) {
-    drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
-    drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', 'module', 'footer');
+    $path = drupal_get_path('module', 'eu_cookie_compliance');
+    drupal_add_css($path . '/css/eu_cookie_compliance.css');
+    drupal_add_js($path . '/js/eu_cookie_compliance.js', 'module', 'footer');
   }
 }
 

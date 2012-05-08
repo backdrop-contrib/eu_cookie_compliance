@@ -24,9 +24,6 @@ Drupal.eu_cookie_compliance.createPopup = function(html) {
     .height(Drupal.settings.eu_cookie_compliance.popup_height)
     .width(Drupal.settings.eu_cookie_compliance.popup_width)
     .hide();
-    
-
-
   if(Drupal.settings.eu_cookie_compliance.popup_position) {
     popup.prependTo("body");
     height = popup.height();
