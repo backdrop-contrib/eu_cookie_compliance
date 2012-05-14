@@ -109,7 +109,3 @@ function eu_cookie_compliance_get_settings($setting = 'all') {
   if ($setting == 'all') return $popup_settings;
   return $popup_settings[$setting];
 }
-
-function eu_cookie_compliance_is_enabled() {
-  
-}
