@@ -5,7 +5,7 @@ Drupal.behaviors.eu_cookie_compliance_popup = function(context) {
   }
   var status = Drupal.eu_cookie_compliance.getCurrentStatus();
   if (status == 0) {
-    $('a').click(function(){
+    $('a').bind('click.eu_cookie_compliance', function(){
       Drupal.eu_cookie_compliance.changeStatus(1);
     });
     Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_info);
@@ -47,6 +47,7 @@ Drupal.eu_cookie_compliance.attachEvents = function() {
     window.open(Drupal.settings.eu_cookie_compliance.popup_link);
   });
   $('.agree-button').click(function(){
+    $('a').unbind('click.eu_cookie_compliance');
     Drupal.eu_cookie_compliance.changeStatus(1);
   });
   $('.hide-popup-button').click(function(){
