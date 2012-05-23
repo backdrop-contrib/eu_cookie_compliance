@@ -45,8 +45,8 @@ function eu_cookie_compliance_preprocess_page() {
     global $language;
     $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
     $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
-    $html_info = theme('eu_cookie_compliance_popup_info', array(check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE)));
-    $html_agreed = theme('eu_cookie_compliance_popup_agreed', array(check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE)));
+    $html_info = theme('eu_cookie_compliance_popup_info', array('message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE)));
+    $html_agreed = theme('eu_cookie_compliance_popup_agreed', array('message' => check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE)));
     $variables = array(
       'popup_enabled' => $popup_settings['popup_enabled'],
       'popup_html_info' => $html_info,
