@@ -41,7 +41,7 @@ function eu_cookie_compliance_init() {
 
 function eu_cookie_compliance_preprocess_page() {
   $popup_settings = eu_cookie_compliance_get_settings();
-  if ($popup_settings['popup_enabled']) {
+  if (!empty($popup_settings['popup_enabled'])) {
     global $language;
     $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
     $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
@@ -111,6 +111,6 @@ function eu_cookie_compliance_get_settings($setting = 'all') {
   global $language;
   $popup_settings = variable_get('eu_cookie_compliance_' . $language->language, array());
   if ($setting == 'all') return $popup_settings;
-  if($popup_settings[$setting]) return $popup_settings[$setting];
+  if(isset ($popup_settings[$setting])) return $popup_settings[$setting];
   return NULL;
 }
