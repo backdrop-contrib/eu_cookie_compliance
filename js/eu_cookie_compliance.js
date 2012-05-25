@@ -27,7 +27,6 @@
       .height(Drupal.settings.eu_cookie_compliance.popup_height)
       .width(Drupal.settings.eu_cookie_compliance.popup_width)
       .hide();
-    console.log(popup);
     if(Drupal.settings.eu_cookie_compliance.popup_position) {
       popup.prependTo("body");
       var height = popup.height();
