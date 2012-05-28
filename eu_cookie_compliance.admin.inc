@@ -100,12 +100,14 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#type' => $form_color_picker_type,
     '#title' => t('Background Color'),
     '#default_value' => (isset($popup_settings['popup_bg_hex'])) ? $popup_settings['popup_bg_hex'] : '0779BF', // Garland colors :)
+    '#description' => t('Change the background color of the popup. Provide HEX value without the #'),
   );
   
   $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
     '#type' => $form_color_picker_type,
     '#title' => t('Text Color'),
     '#default_value' => (isset($popup_settings['popup_text_hex'])) ? $popup_settings['popup_text_hex'] : 'ffffff',
+    '#description' => t('Change the text color of the popup. Provide HEX value without the #'),
   );
 
   return system_settings_form($form);
