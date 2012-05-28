@@ -35,7 +35,12 @@ page (see next step).
 4. Go to the admin/settings/eu-cookie-compliance page to configure and enable 
 the pop-up
 
-5. If you want to theme your pop-up override the themes in the template file.
+5. If you want to customise the pop-up background and text color, either type
+in the hex values or simply install http://drupal.org/project/jquery_colorpicker 
+
+6. If you want to theme your pop-up override the themes in the template file.
+
+
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies 
 from being set.
