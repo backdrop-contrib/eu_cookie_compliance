@@ -61,7 +61,7 @@ function eu_cookie_compliance_preprocess_page() {
 
        
     // color overrides
-    $css .= "#sliding-popup.sliding-popup-bottom {background:#{$popup_settings['popup_bg_hex']};}";
+    $css = "#sliding-popup.sliding-popup-bottom {background:#{$popup_settings['popup_bg_hex']};}";
     $css .= "#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#{$popup_settings['popup_text_hex']};}";
     
     $option['type'] = 'inline';        
