@@ -99,7 +99,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_' . $ln]['popup_bg_hex'] = array(
     '#type' => $form_color_picker_type,
     '#title' => t('Background Color'),
-    '#default_value' => (isset($popup_settings['popup_bg_hex'])) ? $popup_settings['popup_bg_hex'] : '000000',
+    '#default_value' => (isset($popup_settings['popup_bg_hex'])) ? $popup_settings['popup_bg_hex'] : '0779BF', // Garland colors :)
   );
   
   $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
