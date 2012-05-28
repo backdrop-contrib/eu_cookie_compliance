@@ -90,6 +90,24 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#required' => TRUE,
   );
 
+  $form_color_picker_type = 'textfield';
+  
+  if (module_exists('jquery_colorpicker')) {
+    $form_color_picker_type = 'jquery_colorpicker';
+  }
+
+  $form['eu_cookie_compliance_' . $ln]['popup_bg_hex'] = array(
+    '#type' => $form_color_picker_type,
+    '#title' => t('Background Color'),
+    '#default_value' => (isset($popup_settings['popup_bg_hex'])) ? $popup_settings['popup_bg_hex'] : '000000',
+  );
+  
+  $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
+    '#type' => $form_color_picker_type,
+    '#title' => t('Text Color'),
+    '#default_value' => (isset($popup_settings['popup_text_hex'])) ? $popup_settings['popup_text_hex'] : 'ffffff',
+  );
+
   return system_settings_form($form);
 }
 
