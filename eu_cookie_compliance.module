@@ -59,13 +59,15 @@ function eu_cookie_compliance_preprocess_page() {
       'popup_language' => $language->language,
     );
 
-       
+
     // color overrides
-    $css = "#sliding-popup.sliding-popup-bottom {background:#{$popup_settings['popup_bg_hex']};}";
-    $css .= "#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#{$popup_settings['popup_text_hex']};}";
+    if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
+      $css = "#sliding-popup.sliding-popup-bottom {background:#{$popup_settings['popup_bg_hex']};}";
+      $css .= "#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#{$popup_settings['popup_text_hex']};}";
     
-    $option['type'] = 'inline';        
-    drupal_add_css($css, $option);
+      $option['type'] = 'inline';        
+      drupal_add_css($css, $option);
+    }
         
     drupal_add_js(array('eu_cookie_compliance' => $variables), array('type' => 'setting', 'scope' => 'footer'));
   }
