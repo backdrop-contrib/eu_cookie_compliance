@@ -52,7 +52,7 @@ function eu_cookie_compliance_admin_form($form_state) {
 
   $form['eu_cookie_compliance_' . $ln]['popup_link'] = array(
     '#type' => 'textfield',
-    '#title' => t('Private policy link'),
+    '#title' => t('Privacy policy link'),
     '#default_value' => (isset($popup_settings['popup_link'])) ? $popup_settings['popup_link'] : '',
     '#size' => 60,
     '#maxlength' => 220,
