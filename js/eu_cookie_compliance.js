@@ -5,6 +5,9 @@
       if(!enabled) {
         return;
       }
+      if (!Drupal.eu_cookie_compliance.cookiesEnabled()) {
+        return;
+      } 
       var status = Drupal.eu_cookie_compliance.getCurrentStatus();
       if (status == 0) {
         $('a').bind('click.eu_cookie_compliance', function(){
@@ -109,6 +112,15 @@
       return true;
     }
     return false;
+  }
+  
+  Drupal.eu_cookie_compliance.cookiesEnabled = function() {
+    var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+      if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled) { 
+        document.cookie="testcookie";
+        cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+      }
+    return (cookieEnabled);
   }
   
 })(jQuery);
