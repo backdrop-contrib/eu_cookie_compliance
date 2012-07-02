@@ -35,6 +35,8 @@
   display: inline;
   margin-right: 5px;
   vertical-align: middle;
+  overflow: visible;
+  width: auto;
   
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
