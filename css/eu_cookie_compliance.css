@@ -32,6 +32,7 @@
 }
 
 #sliding-popup .popup-content #popup-buttons button {
+  cursor: pointer;
   display: inline;
   margin-right: 5px;
   vertical-align: middle;
