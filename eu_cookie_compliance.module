@@ -107,12 +107,6 @@ function eu_cookie_compliance_theme() {
 }
 
 /**
- * Provides content for EU regulation popups.
- */
-function eu_cookie_compliance_get_popup_content($text) {
-  return $output;
-}
-/**
  *
  * Retrieves settings from the database for a current language.
  *
