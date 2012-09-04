@@ -11,24 +11,13 @@
  * Implements hook_menu().
  */
 function eu_cookie_compliance_menu() {
-  $items['admin/config/eu-cookie-compliance'] = array(
+  $items['admin/config/system/eu-cookie-compliance'] = array(
     'title' => 'EU Cookie Compliance',
     'description' => 'Make your website compliant with the EU Directive on Privacy and Electronic Communications.',
-    'position' => 'left',
-    'weight' => 20,
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer EU Cookie Compliance popup'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
-
-  $items['admin/config/eu-cookie-compliance/admin'] = array(
-    'title' => 'EU Cookie Compliance settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('eu_cookie_compliance_admin_form'),
     'access arguments' => array('administer EU Cookie Compliance popup'),
     'file' => 'eu_cookie_compliance.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -40,7 +29,7 @@ function eu_cookie_compliance_init() {
   $enabled = eu_cookie_compliance_get_settings('popup_enabled');
   if ($enabled && user_access('display EU Cookie Compliance popup')) {
     $path = drupal_get_path('module', 'eu_cookie_compliance');
-    drupal_add_css($path . '/css/eu_cookie_compliance.css');       
+    drupal_add_css($path . '/css/eu_cookie_compliance.css');
     drupal_add_js($path . '/js/eu_cookie_compliance.js', array('type' => 'file', 'scope' => 'footer'));
   }
 }
@@ -75,11 +64,11 @@ function eu_cookie_compliance_preprocess_page() {
     if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
       $css = "#sliding-popup.sliding-popup-bottom {background:#{$popup_settings['popup_bg_hex']};}";
       $css .= "#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#{$popup_settings['popup_text_hex']};}";
-    
-      $option['type'] = 'inline';        
+
+      $option['type'] = 'inline';
       drupal_add_css($css, $option);
     }
-        
+
     drupal_add_js(array('eu_cookie_compliance' => $variables), array('type' => 'setting', 'scope' => 'footer'));
   }
 }
@@ -90,10 +79,10 @@ function eu_cookie_compliance_preprocess_page() {
 function eu_cookie_compliance_permission() {
   return array(
     'administer EU Cookie Compliance popup' => array(
-      'title' => 'Administer EU Cookie Compliance popup' 
+      'title' => 'Administer EU Cookie Compliance popup'
     ),
     'display EU Cookie Compliance popup' => array(
-      'title' => 'Display EU Cookie Compliance popup' 
+      'title' => 'Display EU Cookie Compliance popup'
     ),
   );
 }
@@ -126,10 +115,10 @@ function eu_cookie_compliance_get_popup_content($text) {
 /**
  *
  * Retrieves settings from the database for a current language.
- * 
+ *
  * @global type $language
  * @param type $setting
- * @return type 
+ * @return type
  */
 
 function eu_cookie_compliance_get_settings($setting = 'all') {
