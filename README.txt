@@ -32,7 +32,7 @@ the admin/user/permissions page.
 Alternatively, if you have a privacy policy, you can link the pop-up to that 
 page (see next step).
 
-4. Go to the admin/settings/eu-cookie-compliance page to configure and enable 
+4. Go to the admin/config/system/eu-cookie-compliance page to configure and enable 
 the pop-up
 
 5. If you want to customise the pop-up background and text color, either type
