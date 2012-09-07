@@ -125,7 +125,7 @@
   Drupal.eu_cookie_compliance.setStatus = function(status) {
     var date = new Date();
     date.setDate(date.getDate() + 100);
-    document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=/";
+    document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=/" + Drupal.settings.basePath;
   }
 
 
