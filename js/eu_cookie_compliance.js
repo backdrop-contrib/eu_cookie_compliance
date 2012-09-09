@@ -21,6 +21,15 @@
               }
               Drupal.eu_cookie_compliance.changeStatus(next_status);
             });
+
+            $('.agree-button').click(function(){
+              if(!agreed_enabled) {
+                Drupal.eu_cookie_compliance.setStatus(1);
+                next_status = 2;
+              }
+              Drupal.eu_cookie_compliance.changeStatus(next_status);
+            });
+
             Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_info);
           } else if(status == 1) {
             Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_agreed);
