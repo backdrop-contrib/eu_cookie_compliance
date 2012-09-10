@@ -49,8 +49,8 @@ function eu_cookie_compliance_preprocess_page() {
     $variables = array(
       'popup_enabled' => $popup_settings['popup_enabled'],
       'popup_agreed_enabled' => $popup_settings['popup_agreed_enabled'],
-      'popup_html_info' => $html_info,
-      'popup_html_agreed' => $html_agreed,
+      'popup_html_info' => empty($html_info) ? FALSE : $html_info,
+      'popup_html_agreed' => empty($html_agreed) ? FALSE : $html_agreed,
       'popup_height' => ($popup_settings['popup_height']) ? (int) $popup_settings['popup_height'] : 'auto',
       'popup_width' => (drupal_substr($popup_settings['popup_width'], -1) == '%') ? $popup_settings['popup_width'] : (int) $popup_settings['popup_width'],
       'popup_delay' => (int) ($popup_settings['popup_delay'] * 1000),

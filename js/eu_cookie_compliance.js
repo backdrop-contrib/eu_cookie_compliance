@@ -137,7 +137,6 @@
     document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=/" + Drupal.settings.basePath;
   }
 
-
   Drupal.eu_cookie_compliance.hasAgreed = function() {
     var status = Drupal.eu_cookie_compliance.getCurrentStatus();
     if(status == 1 || status == 2) {
