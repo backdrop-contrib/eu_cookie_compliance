@@ -134,7 +134,7 @@
   Drupal.eu_cookie_compliance.setStatus = function(status) {
     var date = new Date();
     date.setDate(date.getDate() + 100);
-    document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=/" + Drupal.settings.basePath;
+    document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=" + Drupal.settings.basePath;
   }
 
   Drupal.eu_cookie_compliance.hasAgreed = function() {
