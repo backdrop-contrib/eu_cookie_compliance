@@ -22,7 +22,7 @@
     </div>
     <div id="popup-buttons">
       <button type="button" class="agree-button"><?php print t("Yes, I agree"); ?></button>
-      <button type="button" class="find-more-button"><?php print t("Find out more"); ?></button>
+      <button type="button" class="find-more-button"><?php print t("No, I want to find out more"); ?></button>
     </div>
   </div>
 </div>
