@@ -49,6 +49,7 @@ function eu_cookie_compliance_preprocess_page() {
     $variables = array(
       'popup_enabled' => $popup_settings['popup_enabled'],
       'popup_agreed_enabled' => $popup_settings['popup_agreed_enabled'],
+      'popup_hide_agreed' => isset($popup_settings['popup_hide_agreed']) ? $popup_settings['popup_hide_agreed'] : FALSE,
       'popup_html_info' => empty($html_info) ? FALSE : $html_info,
       'popup_html_agreed' => empty($html_agreed) ? FALSE : $html_agreed,
       'popup_height' => ($popup_settings['popup_height']) ? (int) $popup_settings['popup_height'] : 'auto',

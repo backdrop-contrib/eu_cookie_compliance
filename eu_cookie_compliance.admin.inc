@@ -48,6 +48,13 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#default_value' => isset($popup_settings['popup_agreed_enabled']) ? $popup_settings['popup_agreed_enabled'] : 1,
   );
 
+  $form['eu_cookie_compliance_' . $ln]['popup_hide_agreed'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Clicking hides thank you message'),
+    '#default_value' => isset($popup_settings['popup_hide_agreed']) ? $popup_settings['popup_hide_agreed'] : 0,
+    '#description' => t('Clicking a link hides the thank you message automatically.'),
+  );
+
   $form['eu_cookie_compliance_' . $ln]['popup_agreed'] = array(
     '#type' => 'text_format',
     '#title' => t('Popup message - thanks for giving consent'),

@@ -12,6 +12,7 @@
           } 
           var status = Drupal.eu_cookie_compliance.getCurrentStatus();
           var agreed_enabled = Drupal.settings.eu_cookie_compliance.popup_agreed_enabled;
+          var popup_hide_agreed = Drupal.settings.eu_cookie_compliance.popup_hide_agreed;
           if (status == 0) {
             var next_status = 1;
             $('a, input[type=submit]').bind('click.eu_cookie_compliance', function(){
@@ -33,6 +34,12 @@
             Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_info);
           } else if(status == 1) {
             Drupal.eu_cookie_compliance.createPopup(Drupal.settings.eu_cookie_compliance.popup_html_agreed);
+            if (popup_hide_agreed) {
+              $('a, input[type=submit]').bind('click.eu_cookie_compliance_hideagreed', function(){
+                Drupal.eu_cookie_compliance.changeStatus(2);
+              });
+            }
+
           } else {
             return;
           }
