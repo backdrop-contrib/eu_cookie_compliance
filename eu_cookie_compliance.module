@@ -26,22 +26,20 @@ function eu_cookie_compliance_menu() {
  * Implements hook_init().
  */
 function eu_cookie_compliance_init() {
-  $enabled = eu_cookie_compliance_get_settings('popup_enabled');
-  if ($enabled && user_access('display EU Cookie Compliance popup')) {
-    $path = drupal_get_path('module', 'eu_cookie_compliance');
-    drupal_add_css($path . '/css/eu_cookie_compliance.css');
-    drupal_add_js($path . '/js/eu_cookie_compliance.js', array('type' => 'file', 'scope' => 'footer'));
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-
-function eu_cookie_compliance_preprocess_page() {
   $popup_settings = eu_cookie_compliance_get_settings();
   if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup')) {
     global $language;
+
+    // color overrides
+    if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
+      $position = $popup_settings['popup_position'] ? 'top' : 'bottom';
+      $css = '#sliding-popup.sliding-popup-'.$position.' {background:#'.$popup_settings['popup_bg_hex'].';}'
+           . '#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#'.$popup_settings['popup_text_hex'].';}';
+      $option['type'] = 'inline';
+      drupal_add_css($css, $option);
+    }
+    drupal_add_css(drupal_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
+
     $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
     $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
     $html_info = theme('eu_cookie_compliance_popup_info', array('message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE)));
@@ -59,19 +57,8 @@ function eu_cookie_compliance_preprocess_page() {
       'popup_position' => $popup_settings['popup_position'],
       'popup_language' => $language->language,
     );
-
-
-    // color overrides
-    if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
-      $position = $popup_settings['popup_position'] ? 'top' : 'bottom';
-      $css = "#sliding-popup.sliding-popup-{$position} {background:#{$popup_settings['popup_bg_hex']};}";
-      $css .= "#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#{$popup_settings['popup_text_hex']};}";
-
-      $option['type'] = 'inline';
-      drupal_add_css($css, $option);
-    }
-
     drupal_add_js(array('eu_cookie_compliance' => $variables), array('type' => 'setting', 'scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', array('type' => 'file', 'scope' => 'footer'));
   }
 }
 
