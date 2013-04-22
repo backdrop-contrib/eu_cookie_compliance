@@ -30,7 +30,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   if (module_exists('geoip')){
     $form['eu_cookie_compliance_' . $ln]['eu_only'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Only display popup for EU citizens (using the <a href="http://drupal.org/project/geoip">geoip</a> module)'),
+      '#title' => t('Only display popup in EU countries (using the <a href="http://drupal.org/project/geoip">geoip</a> module)'),
       '#default_value' => isset($popup_settings['eu_only']) ? $popup_settings['eu_only'] : 0,
     );
   }

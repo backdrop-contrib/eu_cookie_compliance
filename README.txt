@@ -1,4 +1,4 @@
-EU Cookie Compliance 6.x - 1.x
+EU Cookie Compliance 7.x - 1.x
 ==============================
 
 This module intends to deal with the EU Directive on Privacy and Electronic 
@@ -42,6 +42,9 @@ the pop-up
 in the hex values or simply install http://drupal.org/project/jquery_colorpicker 
 
 6. If you want to theme your pop-up override the themes in the template file.
+
+7. If you want to show the message in EU countries only, install the geoip
+module: http://drupal.org/project/geoip and enable the option on the admin page.
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies 
 from being set.
