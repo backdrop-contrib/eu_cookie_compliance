@@ -95,7 +95,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#size' => 5,
     '#maxlength' => 5,
     '#required' => FALSE,
-    '#description' => t('Enter an integer value for a desired height in pixels or leave empty for automatically adjusted height'),
+    '#description' => t('Enter an integer value for a desired height in pixels or leave empty for automatically adjusted height. Do not set this value if you are using responsive theme.'),
 
   );
 
