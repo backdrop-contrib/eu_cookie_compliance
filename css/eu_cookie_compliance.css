@@ -23,22 +23,24 @@
   display: inline-block;
   margin: 0 auto;
   padding: 0;
-  width: 1076px;
+  max-width: 80%;
 }
 
 #sliding-popup .popup-content #popup-buttons {
   float: right;
-  margin: 10px 30px 10px 0;
+  margin: 0;
+  max-width: 40%;
 }
 
 #sliding-popup .popup-content #popup-buttons button {
   cursor: pointer;
   display: inline;
   margin-right: 5px;
+  margin-top: 1em;
   vertical-align: middle;
   overflow: visible;
   width: auto;
-  
+
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
   -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
   box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -56,28 +58,28 @@
   font-weight:bold;
   padding:4px 8px;
   text-decoration:none;
-  text-shadow:1px 1px 0px #ffffff;  
+  text-shadow:1px 1px 0px #ffffff;
 }
 
 #sliding-popup .popup-content #popup-buttons button:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
   background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
-  background-color:#dfdfdf;  
+  background-color:#dfdfdf;
 }
 
 #sliding-popup .popup-content #popup-buttons button:active {
   position:relative;
-  top:1px;  
+  top:1px;
 }
 
 #sliding-popup .popup-content #popup-text {
   color: #fff;
   float: left;
   font-weight: bold;
-  margin: 5px 0 5px 50px;
+  margin: 5px 0;
   text-align: left;
-  width: 600px;
+  max-width: 60%;
 }
 
 #sliding-popup .popup-content #popup-text h2,
@@ -86,9 +88,29 @@
   display: block;
   font-size: 16px;
   font-weight: bold;
+  line-height: 1.4;
   margin: 0 0 5px 0;
 }
 
 #sliding-popup .popup-content #popup-text p {
   font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+  #sliding-popup .popup-content {
+    max-width: 95%;
+  }
+
+  #sliding-popup .popup-content #popup-text {
+    max-width: 100%;
+  }
+
+  #sliding-popup .popup-content #popup-buttons {
+    float: none;
+    margin: 5px 0;
+    max-width: 100%;
+  }
+  #sliding-popup .popup-content #popup-buttons button {
+    margin-bottom: 1em;
+  }
 }
