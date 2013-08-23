@@ -27,6 +27,13 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#default_value' => isset($popup_settings['popup_enabled']) ? $popup_settings['popup_enabled'] : 0,
   );
 
+  $form['eu_cookie_compliance_' . $ln]['popup_clicking_confirmation'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Consent by clicking'),
+    '#default_value' => isset($popup_settings['popup_clicking_confirmation']) ? $popup_settings['popup_clicking_confirmation'] : 1,
+    '#description' => t('By default by clicking any link on the website the visitor accepts the cookie policy. Uncheck this box if you do not require this functionality. You may want to edit the pop-up message below accordingly.'),
+  );
+
   if (module_exists('geoip')){
     $form['eu_cookie_compliance_' . $ln]['eu_only'] = array(
       '#type' => 'checkbox',
@@ -89,7 +96,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#maxlength' => 5,
     '#required' => FALSE,
     '#description' => t('Enter an integer value for a desired height in pixels or leave empty for automatically adjusted height'),
-  
+
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_width'] = array(
@@ -112,7 +119,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   );
 
   $form_color_picker_type = 'textfield';
-  
+
   if (module_exists('jquery_colorpicker')) {
     $form_color_picker_type = 'jquery_colorpicker';
   }
@@ -123,7 +130,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#default_value' => isset($popup_settings['popup_bg_hex']) ? $popup_settings['popup_bg_hex'] : '0779BF', // Garland colors :)
     '#description' => t('Change the background color of the popup. Provide HEX value without the #'),
   );
-  
+
   $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
     '#type' => $form_color_picker_type,
     '#title' => t('Text Color'),

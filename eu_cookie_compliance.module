@@ -27,7 +27,7 @@ function eu_cookie_compliance_menu() {
  */
 function eu_cookie_compliance_init() {
   $popup_settings = eu_cookie_compliance_get_settings();
-  if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) { 
+  if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) {
     $geoip_match = false;
     if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'IT', 'CY', 'LV', 'UK', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'))) {
       $geoip_match = true;
@@ -53,10 +53,12 @@ function eu_cookie_compliance_init() {
     $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
     $html_info = theme('eu_cookie_compliance_popup_info', array('message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE)));
     $html_agreed = theme('eu_cookie_compliance_popup_agreed', array('message' => check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE)));
+    $clicking_confirmation = (isset($popup_settings['popup_clicking_confirmation']))? $popup_settings['popup_clicking_confirmation'] : TRUE ;
     $variables = array(
       'popup_enabled' => $popup_settings['popup_enabled'],
       'popup_agreed_enabled' => $popup_settings['popup_agreed_enabled'],
       'popup_hide_agreed' => isset($popup_settings['popup_hide_agreed']) ? $popup_settings['popup_hide_agreed'] : FALSE,
+      'popup_clicking_confirmation' => $clicking_confirmation,
       'popup_html_info' => empty($html_info) ? FALSE : $html_info,
       'popup_html_agreed' => empty($html_agreed) ? FALSE : $html_agreed,
       'popup_height' => ($popup_settings['popup_height']) ? (int) $popup_settings['popup_height'] : 'auto',

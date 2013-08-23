@@ -11,17 +11,20 @@
             return;
           } 
           var status = Drupal.eu_cookie_compliance.getCurrentStatus();
+          var clicking_confirms = Drupal.settings.eu_cookie_compliance.popup_clicking_confirmation;
           var agreed_enabled = Drupal.settings.eu_cookie_compliance.popup_agreed_enabled;
           var popup_hide_agreed = Drupal.settings.eu_cookie_compliance.popup_hide_agreed;
           if (status == 0) {
             var next_status = 1;
-            $('a, input[type=submit]').bind('click.eu_cookie_compliance', function(){
-              if(!agreed_enabled) {
-                Drupal.eu_cookie_compliance.setStatus(1);
-                next_status = 2;
-              }
-              Drupal.eu_cookie_compliance.changeStatus(next_status);
-            });
+            if (clicking_confirms) {
+              $('a, input[type=submit]').bind('click.eu_cookie_compliance', function(){
+                if(!agreed_enabled) {
+                  Drupal.eu_cookie_compliance.setStatus(1);
+                  next_status = 2;
+                }
+                Drupal.eu_cookie_compliance.changeStatus(next_status);
+              });
+            }
 
             $('.agree-button').click(function(){
               if(!agreed_enabled) {
@@ -78,6 +81,7 @@
   }
 
   Drupal.eu_cookie_compliance.attachEvents = function() {
+	var clicking_confirms = Drupal.settings.eu_cookie_compliance.popup_clicking_confirmation;
     var agreed_enabled = Drupal.settings.eu_cookie_compliance.popup_agreed_enabled;
     $('.find-more-button').click(function(){
       window.open(Drupal.settings.eu_cookie_compliance.popup_link);
@@ -88,7 +92,9 @@
         Drupal.eu_cookie_compliance.setStatus(1);
         next_status = 2;
       }
-      $('a, input[type=submit]').unbind('click.eu_cookie_compliance');
+      if (clicking_confirms) {
+        $('a, input[type=submit]').unbind('click.eu_cookie_compliance');
+      }
       Drupal.eu_cookie_compliance.changeStatus(next_status);
     });
     $('.hide-popup-button').click(function(){
