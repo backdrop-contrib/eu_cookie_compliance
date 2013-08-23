@@ -1,3 +1,4 @@
 name = EU Cookie Compliance
 description = This module aims at making the website compliant with the new EU cookie regulation 
 core = 7.x
+configure = admin/config/system/eu-cookie-compliance
