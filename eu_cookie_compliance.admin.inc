@@ -127,14 +127,14 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_' . $ln]['popup_bg_hex'] = array(
     '#type' => $form_color_picker_type,
     '#title' => t('Background Color'),
-    '#default_value' => isset($popup_settings['popup_bg_hex']) ? $popup_settings['popup_bg_hex'] : '0779BF', // Garland colors :)
+    '#default_value' => isset($popup_settings['popup_bg_hex']) ? check_plain($popup_settings['popup_bg_hex']) : '0779BF', // Garland colors :)
     '#description' => t('Change the background color of the popup. Provide HEX value without the #'),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
     '#type' => $form_color_picker_type,
     '#title' => t('Text Color'),
-    '#default_value' => isset($popup_settings['popup_text_hex']) ? $popup_settings['popup_text_hex'] : 'ffffff',
+    '#default_value' => isset($popup_settings['popup_text_hex']) ? check_plain($popup_settings['popup_text_hex']) : 'ffffff',
     '#description' => t('Change the text color of the popup. Provide HEX value without the #'),
   );
 
@@ -147,14 +147,19 @@ function eu_cookie_compliance_admin_form($form_state) {
 function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   global $language;
   $ln = $language-> language;
-  //print_r($form_state); die;
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_height']) && !empty($form_state['values']['eu_cookie_compliance_' . $ln]['popup_height'])) {
-    form_set_error('eu_cookie_compliance_popup_height', t('Height must be an integer value .'));
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_height', t('Height must be an integer value .'));
   }
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_delay'])) {
-    form_set_error('eu_cookie_compliance_popup_delay', t('Delay must be an integer value.'));
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_delay', t('Delay must be an integer value.'));
   }
   if (!preg_match('/^[1-9][0-9]{0,4}\%?$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_width'])) {
-    form_set_error('eu_cookie_compliance_popup_width', t('Width must be an integer or a percentage value.'));
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_width', t('Width must be an integer or a percentage value.'));
+  }
+  if (!preg_match('/^[0-9a-fA-F]{3,6}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_bg_hex'])) {
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_bg_hex', t('Backgroung color must be a HEX value (without leading #).'));
+  }
+  if (!preg_match('/^[0-9a-fA-F]{3,6}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_text_hex'])) {
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_text_hex', t('Text color must be a HEX value (without leading #).'));
   }
 }

@@ -42,8 +42,8 @@ function eu_cookie_compliance_init() {
     // color overrides
     if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
       $position = $popup_settings['popup_position'] ? 'top' : 'bottom';
-      $css = '#sliding-popup.sliding-popup-'.$position.' {background:#'.$popup_settings['popup_bg_hex'].';}'
-           . '#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#'.$popup_settings['popup_text_hex'].';}';
+      $css = '#sliding-popup.sliding-popup-' . $position . ' {background:#'. check_plain($popup_settings["popup_bg_hex"]) . ';}'
+           . '#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#' . check_plain($popup_settings['popup_text_hex']) . ' !important;}';
       $option['type'] = 'inline';
       drupal_add_css($css, $option);
     }

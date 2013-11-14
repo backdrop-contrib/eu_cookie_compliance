@@ -28,6 +28,14 @@ function eu_cookie_compliance_install() {
  * Implements hook_uninstall().
  */
 function eu_cookie_compliance_uninstall() {
-  db_query("DELETE FROM {variable} WHERE name LIKE '%eu_cookie_compliance_%'");
+  if(module_exists('locale')) {
+    $langs = locale_language_list();
+    foreach($langs as $key => $lang) {
+      variable_del('eu_cookie_compliance_' . $key);
+    }
+  } else {
+    $lang = ($language->language) ? $language->language : 'en';
+    variable_del('eu_cookie_compliance_' . $lang);
+  }
   cache_clear_all('variables', 'cache');
 }
