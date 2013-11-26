@@ -14,7 +14,6 @@
  * - $message:  Contains the text that will be display whithin the pop-up
  */
 ?>
-
 <div>
   <div class ="popup-content info">
     <div id="popup-text">

@@ -29,7 +29,7 @@ function eu_cookie_compliance_init() {
   $popup_settings = eu_cookie_compliance_get_settings();
   if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) {
     $geoip_match = false;
-    if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'IT', 'CY', 'LV', 'UK', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'))) {
+    if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
       $geoip_match = true;
     }
   } else {
