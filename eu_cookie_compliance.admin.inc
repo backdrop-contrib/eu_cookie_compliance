@@ -49,6 +49,23 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('By default the pop-up appears at the bottom of the website. Tick this box if you want it to appear at the top'),
   );
 
+
+  $form['eu_cookie_compliance_' . $ln]['popup_agree_button_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Agree button message'),
+    '#default_value' => isset($popup_settings['popup_agree_button_message']) ? $popup_settings['popup_agree_button_message'] : t('OK'),
+    '#size' => 30,
+    '#required' => TRUE,
+  );
+
+  $form['eu_cookie_compliance_' . $ln]['popup_disagree_button_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Disagree button message'),
+    '#default_value' => isset($popup_settings['popup_disagree_button_message']) ? $popup_settings['popup_disagree_button_message'] : t('No'),
+    '#size' => 30,
+    '#required' => TRUE,
+  );
+
   $form['eu_cookie_compliance_' . $ln]['popup_info'] = array(
     '#type' => 'text_format',
     '#title' => t('Popup message - requests consent'),
@@ -68,6 +85,22 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#title' => t('Clicking hides thank you message'),
     '#default_value' => isset($popup_settings['popup_hide_agreed']) ? $popup_settings['popup_hide_agreed'] : 0,
     '#description' => t('Clicking a link hides the thank you message automatically.'),
+  );
+
+  $form['eu_cookie_compliance_' . $ln]['popup_find_more_button_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Find more button message'),
+    '#default_value' => isset($popup_settings['popup_find_more_button_message']) ? $popup_settings['popup_find_more_button_message'] : t('More info'),
+    '#size' => 30,
+    '#required' => TRUE,
+  );
+
+  $form['eu_cookie_compliance_' . $ln]['popup_hide_button_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Hide button message'),
+    '#default_value' => isset($popup_settings['popup_hide_button_message']) ? $popup_settings['popup_hide_button_message'] : t('Hide'),
+    '#size' => 30,
+    '#required' => TRUE,
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_agreed'] = array(
