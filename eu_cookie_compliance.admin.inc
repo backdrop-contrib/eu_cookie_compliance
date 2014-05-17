@@ -12,11 +12,19 @@ function eu_cookie_compliance_admin_form($form_state) {
   global $language;
   $ln = $language->language;
   $popup_settings = eu_cookie_compliance_get_settings();
+    
+  $form['eu_cookie_compliance_domain'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Domain'),
+    '#default_value' => variable_get('eu_cookie_compliance_domain', ''),
+    '#description' => t('Sets the domain of the cookie to a specific url.  Used when you need consistency across domains.  This is language independent.'),
+  );
+  
   $form['eu_cookie_compliance_' . $ln] = array (
     '#type'  => 'item',
     '#tree'   => TRUE,
   );
-
+  
   if (module_exists('locale')) {
     $form['eu_cookie_compliance_' . $ln]['#title'] = t('You are editing settings for the %language language.', array('%language' => $language->name));
   }

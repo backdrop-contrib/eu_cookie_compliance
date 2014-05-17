@@ -67,6 +67,7 @@ function eu_cookie_compliance_init() {
       'popup_link' => url($popup_settings['popup_link']),
       'popup_position' => $popup_settings['popup_position'],
       'popup_language' => $language->language,
+      'domain' => variable_get('eu_cookie_compliance_domain', ''),
     );
     drupal_add_js(array('eu_cookie_compliance' => $variables), array('type' => 'setting', 'scope' => 'footer'));
     drupal_add_js(drupal_get_path('module', 'eu_cookie_compliance') . '/js/eu_cookie_compliance.js', array('type' => 'file', 'scope' => 'footer'));

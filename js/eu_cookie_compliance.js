@@ -147,7 +147,11 @@
   Drupal.eu_cookie_compliance.setStatus = function(status) {
     var date = new Date();
     date.setDate(date.getDate() + 100);
-    document.cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=" + Drupal.settings.basePath;
+    var cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=" + Drupal.settings.basePath;
+    if(Drupal.settings.eu_cookie_compliance.domain) {
+      cookie += ";domain="+Drupal.settings.eu_cookie_compliance.domain;
+    }
+    document.cookie = cookie;
   }
 
   Drupal.eu_cookie_compliance.hasAgreed = function() {
