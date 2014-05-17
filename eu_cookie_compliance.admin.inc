@@ -170,6 +170,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#title' => t('Background Color'),
     '#default_value' => isset($popup_settings['popup_bg_hex']) ? check_plain($popup_settings['popup_bg_hex']) : '0779BF', // Garland colors :)
     '#description' => t('Change the background color of the popup. Provide HEX value without the #'),
+    '#element_validate' => array('eu_cookie_compliance_validate_hex'),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_text_hex'] = array(
@@ -177,6 +178,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#title' => t('Text Color'),
     '#default_value' => isset($popup_settings['popup_text_hex']) ? check_plain($popup_settings['popup_text_hex']) : 'ffffff',
     '#description' => t('Change the text color of the popup. Provide HEX value without the #'),
+    '#element_validate' => array('eu_cookie_compliance_validate_hex'),
   );
 
   return system_settings_form($form);
@@ -197,10 +199,13 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   if (!preg_match('/^[1-9][0-9]{0,4}\%?$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_width'])) {
     form_set_error('eu_cookie_compliance_' . $ln . '][popup_width', t('Width must be an integer or a percentage value.'));
   }
-  if (!preg_match('/^[0-9a-fA-F]{3,6}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_bg_hex'])) {
-    form_set_error('eu_cookie_compliance_' . $ln . '][popup_bg_hex', t('Backgroung color must be a HEX value (without leading #).'));
-  }
-  if (!preg_match('/^[0-9a-fA-F]{3,6}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_text_hex'])) {
-    form_set_error('eu_cookie_compliance_' . $ln . '][popup_text_hex', t('Text color must be a HEX value (without leading #).'));
+}
+
+/**
+ * Validate field for a HEX value if a value is set
+ */
+function eu_cookie_compliance_validate_hex($element, &$form_state) {
+  if (!empty($element['#value']) && !preg_match('/^[0-9a-fA-F]{3,6}$/', $element['#value'])) {
+    form_error($element, t('%name must be a HEX value (without leading #) or empty.', array('%name' => $element['#title'])));
   }
 }
