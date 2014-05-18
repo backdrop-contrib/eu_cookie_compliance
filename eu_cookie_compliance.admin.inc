@@ -12,19 +12,19 @@ function eu_cookie_compliance_admin_form($form_state) {
   global $language;
   $ln = $language->language;
   $popup_settings = eu_cookie_compliance_get_settings();
-    
+
   $form['eu_cookie_compliance_domain'] = array(
     '#type' => 'textfield',
     '#title' => t('Domain'),
     '#default_value' => variable_get('eu_cookie_compliance_domain', ''),
     '#description' => t('Sets the domain of the cookie to a specific url.  Used when you need consistency across domains.  This is language independent.'),
   );
-  
+
   $form['eu_cookie_compliance_' . $ln] = array (
     '#type'  => 'item',
     '#tree'   => TRUE,
   );
-  
+
   if (module_exists('locale')) {
     $form['eu_cookie_compliance_' . $ln]['#title'] = t('You are editing settings for the %language language.', array('%language' => $language->name));
   }
@@ -199,6 +199,7 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   if (!preg_match('/^[1-9][0-9]{0,4}\%?$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_width'])) {
     form_set_error('eu_cookie_compliance_' . $ln . '][popup_width', t('Width must be an integer or a percentage value.'));
   }
+  cache_clear_all('eu_cookie_compliance_client_settings_' . $language->language, 'cache');
 }
 
 /**
