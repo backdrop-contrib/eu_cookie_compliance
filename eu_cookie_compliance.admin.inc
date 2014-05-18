@@ -61,7 +61,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_' . $ln]['popup_agree_button_message'] = array(
     '#type' => 'textfield',
     '#title' => t('Agree button message'),
-    '#default_value' => isset($popup_settings['popup_agree_button_message']) ? $popup_settings['popup_agree_button_message'] : t('OK'),
+    '#default_value' => isset($popup_settings['popup_agree_button_message']) ? $popup_settings['popup_agree_button_message'] : t('OK, I agree'),
     '#size' => 30,
     '#required' => TRUE,
   );
@@ -69,7 +69,7 @@ function eu_cookie_compliance_admin_form($form_state) {
   $form['eu_cookie_compliance_' . $ln]['popup_disagree_button_message'] = array(
     '#type' => 'textfield',
     '#title' => t('Disagree button message'),
-    '#default_value' => isset($popup_settings['popup_disagree_button_message']) ? $popup_settings['popup_disagree_button_message'] : t('No'),
+    '#default_value' => isset($popup_settings['popup_disagree_button_message']) ? $popup_settings['popup_disagree_button_message'] : t('No, give me more info'),
     '#size' => 30,
     '#required' => TRUE,
   );
