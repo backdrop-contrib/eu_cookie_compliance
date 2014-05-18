@@ -79,7 +79,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#title' => t('Popup message - requests consent'),
     '#default_value' => isset($popup_settings['popup_info']['value']) ? $popup_settings['popup_info']['value'] : '',
     '#required' => TRUE,
-    '#format' => isset($popup_settings['popup_info']['format']) ? $popup_settings['popup_info']['format'] : NULL,
+    '#format' => isset($popup_settings['popup_info']['format']) ? $popup_settings['popup_info']['format'] : filter_default_format(),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_agreed_enabled'] = array(
@@ -116,7 +116,7 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#title' => t('Popup message - thanks for giving consent'),
     '#default_value' => isset($popup_settings['popup_agreed']['value']) ? $popup_settings['popup_agreed']['value'] : '',
     '#required' => TRUE,
-    '#format' => isset($popup_settings['popup_agreed']['format']) ? $popup_settings['popup_agreed']['format'] : NULL,
+    '#format' => isset($popup_settings['popup_agreed']['format']) ? $popup_settings['popup_agreed']['format'] : filter_default_format(),
   );
 
   $form['eu_cookie_compliance_' . $ln]['popup_link'] = array(
