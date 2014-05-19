@@ -180,6 +180,25 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('Change the text color of the popup. Provide HEX value without the #'),
     '#element_validate' => array('eu_cookie_compliance_validate_hex'),
   );
+  // Adding option to add/remove popup on specified domains
+  $exclude_domains_option_active = array(
+    0 => t('Add'),
+    1 => t('Remove'),
+  );
+  $form['eu_cookie_compliance_' . $ln]['domains_option'] = array(
+    '#type' => 'radios',
+    '#title' => t('Add/Remove popup on specified domains'),
+    '#default_value' => isset($popup_settings['domains_option']) ? $popup_settings['domains_option'] : 1,
+    '#options' => $exclude_domains_option_active,
+    '#description' => t("Specify if you want to add or remove popup on the listed below domains."),
+  );
+  $form['eu_cookie_compliance_' . $ln]['domains_list'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Domains list'),
+    '#default_value' => isset($popup_settings['domains_list']) ? $popup_settings['domains_list'] : '',
+    '#description' => t("Specify domains with protocol (e.g. http or https). Enter one domain per line."),
+  );
+
 
   return system_settings_form($form);
 }

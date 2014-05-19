@@ -27,6 +27,21 @@ function eu_cookie_compliance_menu() {
  */
 function eu_cookie_compliance_page_build(&$page) {
   $popup_settings = eu_cookie_compliance_get_settings();
+ // Check Add/Remove domains
+  $domain_allow = true;
+  $domain_option = isset($popup_settings['domains_option']) ? $popup_settings['domains_option'] : 1;
+  if (isset($popup_settings['domains_list'])) {
+    global $base_url;
+    $domains_list = str_replace(array("\r\n", "\r"), "\n", $popup_settings['domains_list']);
+    $domains_list = explode("\n", $domains_list);
+    $domain_match = in_array($base_url, $domains_list);
+    if ($domain_option && $domain_match) {
+      $domain_allow = false;
+    }
+    if (!$domain_option && !$domain_match) {
+      $domain_allow = false;
+    }
+  }
   if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) {
     $geoip_match = false;
     if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
@@ -36,7 +51,7 @@ function eu_cookie_compliance_page_build(&$page) {
     $geoip_match = true;
   }
 
-  if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup') && $geoip_match) {
+  if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup') && $geoip_match && $domain_allow) {
     global $language;
     // Array storage for caching full client data.
     $data = array();
