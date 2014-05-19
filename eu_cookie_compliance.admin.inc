@@ -199,6 +199,13 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t("Specify domains with protocol (e.g. http or https). Enter one domain per line."),
   );
 
+  $form['eu_cookie_compliance_' . $ln]['exclude_paths'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Exclude paths'),
+    '#default_value' => isset($popup_settings['exclude_paths']) ? $popup_settings['exclude_paths'] : '',
+    '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
+  );
+
 
   return system_settings_form($form);
 }

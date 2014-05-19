@@ -42,6 +42,13 @@ function eu_cookie_compliance_page_build(&$page) {
       $domain_allow = false;
     }
   }
+  // Check exclude paths
+  $path_match = FALSE;
+  if(isset($popup_settings['exclude_paths'])) {
+    $path = drupal_strtolower(drupal_get_path_alias($_GET['q']));
+    $path_match = drupal_match_path($path, $popup_settings['exclude_paths']);
+  }
+
   if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) {
     $geoip_match = false;
     if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
@@ -51,7 +58,7 @@ function eu_cookie_compliance_page_build(&$page) {
     $geoip_match = true;
   }
 
-  if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup') && $geoip_match && $domain_allow) {
+  if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup') && $geoip_match && $domain_allow && !$path_match) {
     global $language;
     // Array storage for caching full client data.
     $data = array();
