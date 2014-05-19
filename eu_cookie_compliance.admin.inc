@@ -42,10 +42,10 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('By default by clicking any link on the website the visitor accepts the cookie policy. Uncheck this box if you do not require this functionality. You may want to edit the pop-up message below accordingly.'),
   );
 
-  if (module_exists('geoip')){
+  if (module_exists('geoip') || module_exists('smart_ip')){
     $form['eu_cookie_compliance_' . $ln]['eu_only'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Only display popup in EU countries (using the <a href="http://drupal.org/project/geoip">geoip</a> module)'),
+      '#title' => t('Only display popup in EU countries (using the <a href="http://drupal.org/project/geoip">geoip</a> module or the <a href="http://drupal.org/project/smart_ip">smart_ip</a> module)'),
       '#default_value' => isset($popup_settings['eu_only']) ? $popup_settings['eu_only'] : 0,
     );
   }
@@ -56,7 +56,6 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#default_value' => isset($popup_settings['popup_position']) ? $popup_settings['popup_position'] : 0,
     '#description' => t('By default the pop-up appears at the bottom of the website. Tick this box if you want it to appear at the top'),
   );
-
 
   $form['eu_cookie_compliance_' . $ln]['popup_agree_button_message'] = array(
     '#type' => 'textfield',

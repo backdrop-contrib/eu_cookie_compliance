@@ -49,9 +49,20 @@ function eu_cookie_compliance_page_build(&$page) {
     $path_match = drupal_match_path($path, $popup_settings['exclude_paths']);
   }
 
-  if (isset($popup_settings['eu_only']) && $popup_settings['eu_only'] && module_exists('geoip')) {
+  if (isset($popup_settings['eu_only']) && $popup_settings['eu_only']) {
+    $country_code = '';
+    if(module_exists('geoip')) {
+      $country_code = geoip_country_code();
+    } elseif(module_exists('smart_ip')) {
+      $smart_ip_session = smart_ip_session_get('smart_ip');
+      $country_code = $smart_ip_session['location']['country_code'];
+    }
     $geoip_match = false;
-    if ( in_array(geoip_country_code(), array('BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
+    if ( in_array($country_code, array(NULL, 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
+      $geoip_match = true;
+    }
+    if ($country_code == '')
+    {
       $geoip_match = true;
     }
   } else {
