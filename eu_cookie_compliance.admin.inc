@@ -230,6 +230,14 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   if (!preg_match('/^[1-9][0-9]{0,4}\%?$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_width'])) {
     form_set_error('eu_cookie_compliance_' . $ln . '][popup_width', t('Width must be an integer or a percentage value.'));
   }
+  $popup_link = $form_state['values']['eu_cookie_compliance_' . $ln]['popup_link'];
+  //if the link contains a fragment then check if it validates then rewrite link with full url
+  if ((strpos($popup_link, '#') !== FALSE) && (strpos($popup_link, 'http') === FALSE)) {
+    $fragment = explode('#', $popup_link);
+    $popup_link = url($fragment[0], array('fragment' => $fragment[1], 'absolute' => TRUE));
+    form_set_error('eu_cookie_compliance_' . $ln . '][popup_link', t('Looks like your privacy policy link contains fragment #, you should make this an absolute url eg @link', array('@link' => $popup_link)));
+  }
+
   cache_clear_all('eu_cookie_compliance_client_settings_' . $language->language, 'cache');
 }
 
