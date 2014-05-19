@@ -84,7 +84,12 @@
 	var clicking_confirms = Drupal.settings.eu_cookie_compliance.popup_clicking_confirmation;
     var agreed_enabled = Drupal.settings.eu_cookie_compliance.popup_agreed_enabled;
     $('.find-more-button').click(function(){
-      window.open(Drupal.settings.eu_cookie_compliance.popup_link);
+      if (Drupal.settings.eu_cookie_compliance.popup_link_new_window) {
+        window.open(Drupal.settings.eu_cookie_compliance.popup_link);
+      }
+      else{
+        window.location.href = Drupal.settings.eu_cookie_compliance.popup_link;
+      }
     });
     $('.agree-button').click(function(){
       var next_status = 1;

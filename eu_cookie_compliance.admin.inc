@@ -129,6 +129,12 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend http://'),
   );
 
+  $form['eu_cookie_compliance_' . $ln]['popup_link_new_window'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Open privacy policy link in a new window'),
+    '#default_value' => isset($popup_settings['popup_link_new_window']) ? $popup_settings['popup_link_new_window'] : 1,
+  );
+
   $form['eu_cookie_compliance_' . $ln]['popup_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Popup height in pixels'),
