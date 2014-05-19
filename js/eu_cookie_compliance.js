@@ -103,18 +103,9 @@
   }
 
   Drupal.eu_cookie_compliance.getCurrentStatus = function() {
-    var search = 'cookie-agreed-'+Drupal.settings.eu_cookie_compliance.popup_language+'=';
-    var offset = document.cookie.indexOf(search);
-    if (offset < 0) {
-      return 0;
-    }
-    offset += search.length;
-    var end = document.cookie.indexOf(';', offset);
-    if (end == -1) {
-      end = document.cookie.length;
-    }
-    var value = document.cookie.substring(offset, end);
-    return parseInt(value);
+	name = 'cookie-agreed';
+	value = Drupal.eu_cookie_compliance.getCookie(name);
+	return value;
   }
 
   Drupal.eu_cookie_compliance.changeStatus = function(value) {
@@ -147,7 +138,7 @@
   Drupal.eu_cookie_compliance.setStatus = function(status) {
     var date = new Date();
     date.setDate(date.getDate() + 100);
-    var cookie = "cookie-agreed-"+Drupal.settings.eu_cookie_compliance.popup_language + "="+status+";expires=" + date.toUTCString() + ";path=" + Drupal.settings.basePath;
+    var cookie = "cookie-agreed=" + status + ";expires=" + date.toUTCString() + ";path=" + Drupal.settings.basePath;
     if(Drupal.settings.eu_cookie_compliance.domain) {
       cookie += ";domain="+Drupal.settings.eu_cookie_compliance.domain;
     }
@@ -161,6 +152,29 @@
     }
     return false;
   }
+
+
+  /**
+   * Verbatim copy of Drupal.comment.getCookie().
+   */
+  Drupal.eu_cookie_compliance.getCookie = function(name) {
+    var search = name + '=';
+    var returnValue = '';
+
+    if (document.cookie.length > 0) {
+      offset = document.cookie.indexOf(search);
+      if (offset != -1) {
+        offset += search.length;
+        var end = document.cookie.indexOf(';', offset);
+        if (end == -1) {
+          end = document.cookie.length;
+        }
+        returnValue = decodeURIComponent(document.cookie.substring(offset, end).replace(/\+/g, '%20'));
+      }
+    }
+
+    return returnValue;
+  };
   
   Drupal.eu_cookie_compliance.cookiesEnabled = function() {
     var cookieEnabled = (navigator.cookieEnabled) ? true : false;
