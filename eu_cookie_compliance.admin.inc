@@ -42,10 +42,10 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('By default by clicking any link on the website the visitor accepts the cookie policy. Uncheck this box if you do not require this functionality. You may want to edit the pop-up message below accordingly.'),
   );
 
-  if (module_exists('geoip') || module_exists('smart_ip')){
+  if (module_exists('geoip') || module_exists('smart_ip') || function_exists('geoip_country_code_by_name') ){
     $form['eu_cookie_compliance_' . $ln]['eu_only'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Only display popup in EU countries (using the <a href="http://drupal.org/project/geoip">geoip</a> module or the <a href="http://drupal.org/project/smart_ip">smart_ip</a> module)'),
+      '#title' => t('Only display popup in EU countries (using the <a href="http://drupal.org/project/geoip">geoip</a> module or the <a href="http://drupal.org/project/smart_ip">smart_ip</a> module or the <a href="http://www.php.net/manual/fr/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function)'),
       '#default_value' => isset($popup_settings['eu_only']) ? $popup_settings['eu_only'] : 0,
     );
   }

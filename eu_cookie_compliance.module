@@ -50,7 +50,8 @@ function eu_cookie_compliance_page_build(&$page) {
   }
 
   if (isset($popup_settings['eu_only']) && $popup_settings['eu_only']) {
-    $country_code = '';
+    //use the geoip function if exists
+    $country_code = function_exists('geoip_country_code_by_name') ? geoip_country_code_by_name(ip_address()) : '';
     if(module_exists('geoip')) {
       $country_code = geoip_country_code();
     } elseif(module_exists('smart_ip')) {
