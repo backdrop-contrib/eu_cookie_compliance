@@ -91,6 +91,7 @@ function eu_cookie_compliance_page_build(&$page) {
         }
       }
       // color overrides
+      $data['css'] = '';
       if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
         $position = $popup_settings['popup_position'] ? 'top' : 'bottom';
         $data['css'] = '#sliding-popup.sliding-popup-' . $position . ' {background:#'. check_plain($popup_settings["popup_bg_hex"]) . ';}'
