@@ -20,6 +20,13 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t('Sets the domain of the cookie to a specific url.  Used when you need consistency across domains.  This is language independent.'),
   );
 
+  $form['eu_cookie_compliance_cookie_lifetime'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Cookie lifetime'),
+    '#default_value' => variable_get('eu_cookie_compliance_cookie_lifetime', 100),
+    '#description' => t("How long does the system remember the user's choice, in days."),
+  );
+
   $form['eu_cookie_compliance_' . $ln] = array (
     '#type'  => 'item',
     '#tree'   => TRUE,
