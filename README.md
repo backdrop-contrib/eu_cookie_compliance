@@ -24,7 +24,7 @@ are also template files for the pop-ups that can be overridden by your theme.
 
 ## Status
 
-This is an initial port of the module ready for testing.
+This is an initial incomplete port of the module.
 
 ## Installation
 
