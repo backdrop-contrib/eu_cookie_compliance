@@ -10,20 +10,20 @@
 function eu_cookie_compliance_admin_form($form_state) {
 
   global $language;
-  $ln = $language->language;
+  $ln = $language->langcode;
   $popup_settings = eu_cookie_compliance_get_settings();
 
   $form['eu_cookie_compliance_domain'] = array(
     '#type' => 'textfield',
     '#title' => t('Domain'),
-    '#default_value' => variable_get('eu_cookie_compliance_domain', ''),
+    '#default_value' => config_get('eu_cookie_compliance.settings','eu_cookie_compliance_domain'),
     '#description' => t('Sets the domain of the cookie to a specific url.  Used when you need consistency across domains.  This is language independent.'),
   );
 
   $form['eu_cookie_compliance_cookie_lifetime'] = array(
     '#type' => 'textfield',
     '#title' => t('Cookie lifetime'),
-    '#default_value' => variable_get('eu_cookie_compliance_cookie_lifetime', 100),
+    '#default_value' => config_get('eu_cookie_compliance.settings','eu_cookie_compliance_cookie_lifetime'),
     '#description' => t("How long does the system remember the user's choice, in days."),
   );
 
@@ -218,16 +218,21 @@ function eu_cookie_compliance_admin_form($form_state) {
     '#description' => t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
   );
 
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
 
-  return system_settings_form($form);
+  return $form;
 }
 
+
 /**
- * Validates form for cookie controll popup.
+ * Validates form for cookie control popup.
  */
 function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
   global $language;
-  $ln = $language-> language;
+  $ln = $language-> langcode;
   if (!preg_match('/^[1-9][0-9]{0,4}$/', $form_state['values']['eu_cookie_compliance_' . $ln]['popup_height']) && !empty($form_state['values']['eu_cookie_compliance_' . $ln]['popup_height'])) {
     form_set_error('eu_cookie_compliance_' . $ln . '][popup_height', t('Height must be an integer value .'));
   }
@@ -245,7 +250,7 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
     form_set_error('eu_cookie_compliance_' . $ln . '][popup_link', t('Looks like your privacy policy link contains fragment #, you should make this an absolute url eg @link', array('@link' => $popup_link)));
   }
 
-  cache_clear_all('eu_cookie_compliance_client_settings_' . $language->language, 'cache');
+  cache_clear_all('eu_cookie_compliance_client_settings_' . $language->langcode, 'cache');
 }
 
 /**
@@ -255,4 +260,15 @@ function eu_cookie_compliance_validate_hex($element, &$form_state) {
   if (!empty($element['#value']) && !preg_match('/^[0-9a-fA-F]{3,6}$/', $element['#value'])) {
     form_error($element, t('%name must be a HEX value (without leading #) or empty.', array('%name' => $element['#title'])));
   }
+}
+
+function eu_cookie_compliance_admin_form_submit($form, &$form_state) {
+  global $language;
+  $ln = $language->langcode;
+  $config = config('eu_cookie_compliance.settings');
+  $config->set('eu_cookie_compliance_domain', $form_state['values']['eu_cookie_compliance_domain']);
+  $config->set('eu_cookie_compliance_cookie_lifetime', $form_state['values']['eu_cookie_compliance_cookie_lifetime']);
+  $config->set('eu_cookie_compliance_'.$ln, $form_state['values']['eu_cookie_compliance_'.$ln]);
+  $config->save();
+  backdrop_set_message(t('The configuration options have been saved.'));
 }

@@ -12,30 +12,27 @@ function eu_cookie_compliance_install() {
   $popup_settings = array(
     'popup_info' => array(
       'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
-      'format' => filter_default_format(),
+      'format' => 'full_html',
     ),
     'popup_agreed' => array(
       'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
-      'format' => filter_default_format(),
+      'format' => 'full_html',
     ),
   );
   global $language;
-  $lang = ($language->language) ? $language->language : 'en';
-  variable_set('eu_cookie_compliance_' . $lang, $popup_settings);
+  $lang = ($language->langcode) ? $language->langcode : 'en';
+  config_set('eu_cookie_compliance.settings','eu_cookie_compliance_'.$lang, $popup_settings);
 }
 
 /**
- * Implements hook_uninstall().
+ * Move settings from variables to config.
  */
-function eu_cookie_compliance_uninstall() {
-  if(module_exists('locale')) {
-    $langs = locale_language_list();
-    foreach($langs as $key => $lang) {
-      variable_del('eu_cookie_compliance_' . $key);
-    }
-  } else {
-    $lang = ($language->language) ? $language->language : 'en';
-    variable_del('eu_cookie_compliance_' . $lang);
-  }
-  cache_clear_all('variables', 'cache');
+function eu_cookie_compliance_update_1000()
+{
+  // Migrate variables to config.
+  $config = config('eu_cookie_compliance.settings');
+  $config->set('eu_cookie_compliance_domain', update_variable_get('eu_cookie_compliance_domain', ''));
+  $config->set('eu_cookie_compliance_cookie_lifetime', update_variable_get('eu_cookie_compliance_cookie_lifetime', '100'));
+  $config->set('eu_cookie_compliance_'.$lang, update_variable_get('eu_cookie_compliance_'.$lang, ''));
+  $config->save();
 }
