@@ -10,7 +10,8 @@
 /**
  * Implements hook_menu().
  */
-function eu_cookie_compliance_menu() {
+function eu_cookie_compliance_menu()
+{
   $items['admin/config/system/eu_cookie_compliance'] = array(
     'title' => 'EU Cookie Compliance',
     'description' => 'Make your website compliant with the EU Directive on Privacy and Electronic Communications.',
@@ -23,11 +24,12 @@ function eu_cookie_compliance_menu() {
 }
 
 /**
- * Implements hook_page_build(&$page).
+ * Implements hook_preprocess_page(&$page).
  */
-function eu_cookie_compliance_page_build(&$page) {
+function eu_cookie_compliance_preprocess_page(&$page)
+{
   $popup_settings = eu_cookie_compliance_get_settings();
- // Check Add/Remove domains
+  // Check Add/Remove domains
   $domain_allow = true;
   $domain_option = isset($popup_settings['domains_option']) ? $popup_settings['domains_option'] : 1;
   if (isset($popup_settings['domains_list'])) {
@@ -44,7 +46,7 @@ function eu_cookie_compliance_page_build(&$page) {
   }
   // Check exclude paths
   $path_match = FALSE;
-  if(isset($popup_settings['exclude_paths'])) {
+  if (isset($popup_settings['exclude_paths'])) {
     $path = backdrop_strtolower(backdrop_get_path_alias($_GET['q']));
     $path_match = backdrop_match_path($path, $popup_settings['exclude_paths']);
   }
@@ -52,18 +54,17 @@ function eu_cookie_compliance_page_build(&$page) {
   if (isset($popup_settings['eu_only']) && $popup_settings['eu_only']) {
     //use the geoip function if exists
     $country_code = function_exists('geoip_country_code_by_name') ? geoip_country_code_by_name(ip_address()) : '';
-    if(module_exists('geoip')) {
+    if (module_exists('geoip')) {
       $country_code = geoip_country_code();
-    } elseif(module_exists('smart_ip')) {
-       $smart_ip_session = smart_ip_session_get('smart_ip');
-       $country_code = isset($smart_ip_session['location']['country_code']) ? $smart_ip_session['location']['country_code'] : NULL;
+    } elseif (module_exists('smart_ip')) {
+      $smart_ip_session = smart_ip_session_get('smart_ip');
+      $country_code = isset($smart_ip_session['location']['country_code']) ? $smart_ip_session['location']['country_code'] : NULL;
     }
     $geoip_match = false;
-    if ( in_array($country_code, array(NULL, 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'NO', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
+    if (in_array($country_code, array(NULL, 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'GB', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'NO', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'UK'))) {
       $geoip_match = true;
     }
-    if ($country_code == '')
-    {
+    if ($country_code == '') {
       $geoip_match = true;
     }
   } else {
@@ -72,12 +73,13 @@ function eu_cookie_compliance_page_build(&$page) {
 
   if (!empty($popup_settings['popup_enabled']) && user_access('display EU Cookie Compliance popup') && $geoip_match && $domain_allow && !$path_match) {
     global $language;
-    // Array storage for caching full client data.
+    // Array storage for caching full client data. Now stored in config.
     $data = array();
-    if($cache = cache_get('eu_cookie_compliance_client_settings_' . $language->langcode, 'cache')) {
-      $data = $cache->data;
-    }
-    else {
+    // is there a saved version
+    //if($cache = config_get('eu_cookie_compliance.settings','eu_cookie_compliance_client_settings_' . $language->langcode)) {
+    if (FALSE) {
+      $data = $cache;
+    } else {
       // Initialize some needed popup settings messages.
       $popup_settings_messages = array(
         'popup_agree_button_message',
@@ -94,16 +96,17 @@ function eu_cookie_compliance_page_build(&$page) {
       $data['css'] = '';
       if ($popup_settings['popup_bg_hex'] != '' and $popup_settings['popup_text_hex'] != '') {
         $position = $popup_settings['popup_position'] ? 'top' : 'bottom';
-        $data['css'] = '#sliding-popup.sliding-popup-' . $position . ' {background:#'. check_plain($popup_settings["popup_bg_hex"]) . ';}'
-             . '#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#' . check_plain($popup_settings['popup_text_hex']) . ' !important;}';
+        $data['css'] = '#sliding-popup.sliding-popup-' . $position . ' {background:#' . check_plain($popup_settings["popup_bg_hex"]) . ';}'
+          . '#sliding-popup .popup-content #popup-text h2, #sliding-popup .popup-content #popup-text p {color:#' . check_plain($popup_settings['popup_text_hex']) . ' !important;}';
       }
       $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
       $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
-      $html_info = theme('eu_cookie_compliance_popup_info', array('message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE), 'agree_button'=> $popup_settings['popup_agree_button_message'], 'disagree_button' => $popup_settings['popup_disagree_button_message']));
-      $html_agreed = theme('eu_cookie_compliance_popup_agreed', array('message' => check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE),'hide_button'=>$popup_settings['popup_hide_button_message'],'find_more_button'=>$popup_settings['popup_find_more_button_message']));
+      $html_info = theme('eu_cookie_compliance_popup_info', array('message' => check_markup($popup_text_info, $popup_settings['popup_info']['format'], FALSE), 'agree_button' => $popup_settings['popup_agree_button_message'], 'disagree_button' => $popup_settings['popup_disagree_button_message']));
+      $html_agreed = theme('eu_cookie_compliance_popup_agreed', array('message' => check_markup($popup_text_agreed, $popup_settings['popup_agreed']['format'], FALSE), 'hide_button' => $popup_settings['popup_hide_button_message'], 'find_more_button' => $popup_settings['popup_find_more_button_message']));
       $popup_text_info = str_replace(array("\r", "\n"), '', $popup_settings['popup_info']['value']);
       $popup_text_agreed = str_replace(array("\r", "\n"), '', $popup_settings['popup_agreed']['value']);
-      $clicking_confirmation = (isset($popup_settings['popup_clicking_confirmation']))? $popup_settings['popup_clicking_confirmation'] : TRUE ;
+      $clicking_confirmation = (isset($popup_settings['popup_clicking_confirmation'])) ? $popup_settings['popup_clicking_confirmation'] : TRUE;
+
       $data['variables'] = array(
         'popup_enabled' => $popup_settings['popup_enabled'],
         'popup_agreed_enabled' => $popup_settings['popup_agreed_enabled'],
@@ -111,18 +114,19 @@ function eu_cookie_compliance_page_build(&$page) {
         'popup_clicking_confirmation' => $clicking_confirmation,
         'popup_html_info' => empty($html_info) ? FALSE : $html_info,
         'popup_html_agreed' => empty($html_agreed) ? FALSE : $html_agreed,
-        'popup_height' => ($popup_settings['popup_height']) ? (int) $popup_settings['popup_height'] : 'auto',
-        'popup_width' => (backdrop_substr($popup_settings['popup_width'], -1) == '%') ? $popup_settings['popup_width'] : (int) $popup_settings['popup_width'],
-        'popup_delay' => (int) ($popup_settings['popup_delay'] * 1000),
+        'popup_height' => ($popup_settings['popup_height']) ? (int)$popup_settings['popup_height'] : 'auto',
+        'popup_width' => (backdrop_substr($popup_settings['popup_width'], -1) == '%') ? $popup_settings['popup_width'] : (int)$popup_settings['popup_width'],
+        'popup_delay' => (int)($popup_settings['popup_delay'] * 1000),
         'popup_link' => url($popup_settings['popup_link']),
         'popup_link_new_window' => isset($popup_settings['popup_link_new_window']) ? $popup_settings['popup_link_new_window'] : 1,
         'popup_position' => empty($popup_settings['popup_position']) ? NULL : $popup_settings['popup_position'],
         'popup_language' => $language->langcode,
-        'domain' => config_get('eu_cookie_compliance.settings','eu_cookie_compliance_domain'),
-        'cookie_lifetime' => config_get('eu_cookie_compliance.settings','eu_cookie_compliance_cookie_lifetime'),
+        'domain' => config_get('eu_cookie_compliance.settings', 'eu_cookie_compliance_domain'),
+        'cookie_lifetime' => config_get('eu_cookie_compliance.settings', 'eu_cookie_compliance_cookie_lifetime'),
       );
-      cache_set('eu_cookie_compliance_client_settings_' . $language->langcode, $data, 'cache', CACHE_TEMPORARY);
-     }
+      // use config file for cache
+      config_set('eu_cookie_compliance.settings', 'eu_cookie_compliance_client_settings_' . $language->langcode, $data);
+    }
     backdrop_add_css($data['css'], array('type' => 'inline'));
     backdrop_add_js(array('eu_cookie_compliance' => $data['variables']), array('type' => 'setting', 'scope' => 'footer'));
     backdrop_add_css(backdrop_get_path('module', 'eu_cookie_compliance') . '/css/eu_cookie_compliance.css');
@@ -133,7 +137,8 @@ function eu_cookie_compliance_page_build(&$page) {
 /**
  * Implements hook_permission().
  */
-function eu_cookie_compliance_permission() {
+function eu_cookie_compliance_permission()
+{
   return array(
     'administer EU Cookie Compliance popup' => array(
       'title' => 'Administer EU Cookie Compliance popup'
@@ -147,7 +152,8 @@ function eu_cookie_compliance_permission() {
 /**
  * Implements hook_theme().
  */
-function eu_cookie_compliance_theme() {
+function eu_cookie_compliance_theme()
+{
   $path = backdrop_get_path('module', 'eu_cookie_compliance') . '/theme';
   return array(
     'eu_cookie_compliance_popup_info' => array(
@@ -172,9 +178,10 @@ function eu_cookie_compliance_theme() {
  * @return type
  */
 
-function eu_cookie_compliance_get_settings($setting = 'all') {
+function eu_cookie_compliance_get_settings($setting = 'all')
+{
   global $language;
-  $popup_settings = config_get('eu_cookie_compliance.settings','eu_cookie_compliance_' . $language->langcode);
+  $popup_settings = config_get('eu_cookie_compliance.settings', 'eu_cookie_compliance_' . $language->langcode);
 
   if ($setting == 'all') {
     return $popup_settings;
@@ -198,4 +205,12 @@ function eu_cookie_compliance_config_info()
     'group' => t('Configuration'),
   );
   return $prefixes;
+}
+
+/**
+ * Implements hook_autoload_info().
+ */
+function eu_cookie_compliance_autoload_info()
+{
+  return array();
 }
