@@ -18,8 +18,8 @@
 }
 
 #sliding-popup .popup-content {
-  background-color: transparent;
-  border: 0 none;
+  background: #AAAAAA;
+  border: none;
   display: block;
   margin: 0 auto;
   padding: 0;
@@ -29,7 +29,7 @@
 #sliding-popup .popup-content #popup-buttons {
   float: right;
   margin: 0;
-  max-width: 40%;
+  max-width: 30%;
 }
 
 #sliding-popup .popup-content #popup-buttons button {
@@ -41,16 +41,7 @@
   overflow: visible;
   width: auto;
 
-  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  box-shadow:inset 0px 1px 0px 0px #ffffff;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-  background-color:#ededed;
-  -moz-border-radius:6px;
-  -webkit-border-radius:6px;
-  border-radius:6px;
+
   border:1px solid #dcdcdc;
   display:inline-block;
   color:#000;
@@ -74,10 +65,13 @@
 }
 
 #sliding-popup .popup-content #popup-text {
-  color: #fff;
+  background-color: rgba(110, 220, 220, 0.6);
+  color: #000080;
   float: left;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 5px 0;
+  padding: 10px;
   text-align: left;
   max-width: 60%;
 }
