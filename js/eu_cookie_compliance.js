@@ -4,6 +4,7 @@
       $('body').not('.sliding-popup-processed').addClass('sliding-popup-processed').each(function() {
         try {
           var enabled = Backdrop.settings.eu_cookie_compliance.popup_enabled;
+
           if(!enabled) {
             return;
           }
@@ -63,7 +64,7 @@
       .width(Backdrop.settings.eu_cookie_compliance.popup_width)
       .hide();
     if(Backdrop.settings.eu_cookie_compliance.popup_position) {
-      popup.prependTo("body");
+      popup.prependTo(".l-content");
       var height = popup.height();
       popup.show()
         .attr({"class": "sliding-popup-top"})
