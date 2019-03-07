@@ -1,5 +1,5 @@
-name = EU Cookie Compliance
-description = This module aims at making the website compliant with the new EU cookie regulation 
-backdrop = 1.x
 type = module
-configure = admin/config/system/eu_cookie_compliance
+name = EU Cookie Compliance
+description = This module aims at making the web site compliant with the EU cookie regulation.
+backdrop = 1.x
+configure = admin/config/system/eu-cookie-compliance

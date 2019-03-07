@@ -1,38 +1,239 @@
 <?php
-
 /**
  * @file
  * Installation file.
  */
 
 /**
+ * Implements hook_schema().
+ */
+function eu_cookie_compliance_schema() {
+  $schema['eu_cookie_compliance_basic_consent'] = array(
+    'description' => 'Basic consent storage for EU Cookie Compliance / GDPR.',
+    'fields' => array(
+      'cid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique consent storage ID.',
+      ),
+      'uid' => array(
+        'description' => '{users}.uid for user.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'Time of consent.',
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'ip_address' => array(
+        'description' => 'The IP address.',
+        'type' => 'varchar',
+        // Maximum length of an ipv6 IP address.
+        'length' => 45,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'consent_type' => array(
+        'description' => 'The type of consent, such as "banner" for the banner and form_id for forms.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'revision_id' => array(
+        'description' => 'Revision of the privacy policy at the time of consent.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('cid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+    'foreign keys' => array(
+      'uid' => array('users' => 'uid'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
  * Implements hook_install().
  */
 function eu_cookie_compliance_install() {
-  $popup_settings = array(
+  // Enable banner for all roles.
+  $roles = user_roles();
+  $permission = 'display EU Cookie Compliance popup';
+  foreach ($roles as $rid => $value) {
+    user_role_grant_permissions($rid, array($permission));
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function eu_cookie_compliance_uninstall() {
+  // An uninstall function will delete the config file on uninstall.
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function eu_cookie_compliance_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+    $settings = config_get('eu_cookie_compliance.settings', 'eu_cookie_compliance');
+
+    if (!empty($settings['popup_link']) && $settings['popup_link'] == '<front>' && !empty($settings['show_disagree_button']) && $settings['show_disagree_button']) {
+      $requirements['eu_cookie_compliance'] = array(
+        'title' => t('EU Cookie Compliance'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Your privacy policy link is pointing at the front page. This is the default value after installation, and unless your privacy policy is actually posted at the front page, you will need to create a separate page for the privacy policy and link to that page.'),
+        'value' => t('Privacy Policy link not provided'),
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Gets the default settings for the 'eu_cookie_compliance' variables.
+ *
+ * @return array
+ *   Associative array containing the default value for each
+ *   'eu_cookie_compliance' parameter.
+ */
+function _eu_cookie_compliance_get_popup_default_setting() {
+  $default_filter_format = filter_default_format();
+  if ($default_filter_format == 'filtered_html' && filter_format_load('full_html')) {
+    $default_filter_format = 'full_html';
+  }
+
+  $cookie_policy = _eu_cookie_compliance_find_privacy_policy();
+  if (!$cookie_policy) {
+    $cookie_policy = '<front>';
+  }
+
+  return array(
+    'info_template' => 'new',
     'popup_info' => array(
-      'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
-      'format' => 'full_html',
+      'value' => '<h2>We use cookies on this site to enhance your experience.</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
+      'format' => $default_filter_format,
     ),
     'popup_agreed' => array(
-      'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
-      'format' => 'full_html',
+      'value' => '<h2>Thank you for accepting cookies.</h2><p>You can now hide this message or find out more about cookies.</p>',
+      'format' => $default_filter_format,
     ),
+    'popup_enabled' => TRUE,
+    'popup_position' => FALSE,
+    'popup_bg_hex' => '0779bf',
+    'popup_text_hex' => 'fff',
+    'popup_agreed_enabled' => FALSE,
+    'popup_height' => '',
+    'popup_width' => '100%',
+    'popup_delay' => 1000,
+    'popup_link' => $cookie_policy,
+    'fixed_top_position' => TRUE,
+    'consent_storage_method' => 'do_not_store',
+    'disabled_javascripts' => '',
+    'cookie_session' => 0,
+    'disable_google_analytics' => 0,
+    'withdraw_message' => array(
+      'value' => '<h2>We use cookies on this site to enhance your experience.</h2><p>You have given your consent for us to set cookies.</p>',
+      'format' => $default_filter_format,
+    ),
+    'withdraw_action_button_label' => 'Withdraw consent',
+    'withdraw_tab_button_label' => 'Privacy settings',
+    'withdraw_enabled' => 0,
   );
-  global $language;
-  $lang = ($language->langcode) ? $language->langcode : 'en';
-  config_set('eu_cookie_compliance.settings','eu_cookie_compliance_'.$lang, $popup_settings);
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function eu_cookie_compliance_update_last_removed() {
+  // Sites coming from Drupal must have updated to at least schema version 7008.
+  return 7008;
 }
 
 /**
  * Move settings from variables to config.
  */
-function eu_cookie_compliance_update_1000()
-{
+function eu_cookie_compliance_update_1000() {
   // Migrate variables to config.
   $config = config('eu_cookie_compliance.settings');
   $config->set('eu_cookie_compliance_domain', update_variable_get('eu_cookie_compliance_domain', ''));
   $config->set('eu_cookie_compliance_cookie_lifetime', update_variable_get('eu_cookie_compliance_cookie_lifetime', '100'));
-  $config->set('eu_cookie_compliance_'.$lang, update_variable_get('eu_cookie_compliance_'.$lang, ''));
+  $config->set('eu_cookie_compliance', update_variable_get('eu_cookie_compliance', ''));
   $config->save();
+}
+
+/**
+ * Set a popup setting value without the language code.
+ */
+function eu_cookie_compliance_update_1001() {
+  $config = config('eu_cookie_compliance.settings');
+  $settings = $config->get('eu_cookie_compliance');
+
+  if (empty($settings)) {
+    // Assumes the language running the update is the default langage.
+    global $language;
+    $current_langcode = ($language->langcode) ? $language->langcode : 'en';
+    $key = 'eu_cookie_compliance_' . $current_langcode;
+    $settings = $config->get($key);
+    $config->set('eu_cookie_compliance', $settings);
+    $config->clear($key);
+    $config->save();
+  }
+}
+
+/**
+ * Disable withdraw tab and banner in the consent method "Consent by default".
+ * Equivilent to update 7009 for Drupal.
+ */
+function eu_cookie_compliance_update_1002() {
+  $config = config('eu_cookie_compliance.settings');
+  $settings = $config->get('eu_cookie_compliance');
+
+  if (!empty($settings['method']) && $settings['method'] == 'default'
+    && !empty($settings['withdraw_enabled']) && $settings['withdraw_enabled'] == 1) {
+    $settings['withdraw_enabled'] = 0;
+    $config->set('eu_cookie_compliance', $settings);
+    $config->save();
+  }
+}
+
+/**
+ * Ensure that all "eu_cookie_compliance" parameters have a default value.
+ * Equivilent to update 7010 for Drupal.
+ */
+function eu_cookie_compliance_update_1003() {
+  $config = config('eu_cookie_compliance.settings');
+  $settings = $config->get('eu_cookie_compliance');
+
+  $updated_setting = $settings + _eu_cookie_compliance_get_popup_default_setting();
+  $config->set('eu_cookie_compliance', $updated_setting);
+  $config->save();
+
+  if (module_exists('i18n_variable')) {
+    $languages = language_list();
+    foreach (array_keys($languages) as $langcode) {
+      $settings = i18n_variable_get('eu_cookie_compliance', $langcode);
+      if (!empty($settings)) {
+        $updated_setting = $settings + _eu_cookie_compliance_get_popup_default_setting();
+        i18n_variable_set('eu_cookie_compliance', $updated_setting, $langcode);
+      }
+    }
+  }
 }
