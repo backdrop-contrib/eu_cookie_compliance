@@ -4,8 +4,7 @@
  * Documentation for the EU Cookie Compliance module.
  *
  * This file contains no working PHP code; it exists to provide additional
- * documentation for doxygen as well as to document hooks in the standard
- * Drupal manner.
+ * documentation for doxygen as well as to document hooks.
  */
 
 /**
