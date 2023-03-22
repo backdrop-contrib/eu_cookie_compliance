@@ -81,6 +81,7 @@
     var $html = $('<div></div>').html(html);
     var $banner = $('.eu-cookie-withdraw-banner', $html);
     $html.attr('id', 'sliding-popup');
+    $html.attr('role', 'dialog');
     $html.addClass('eu-cookie-withdraw-wrapper');
 
     if (!Backdrop.settings.eu_cookie_compliance.popup_use_bare_css) {
@@ -155,6 +156,7 @@
     // This fixes a problem with jQuery 1.9.
     var $popup = $('<div></div>').html(html);
     $popup.attr('id', 'sliding-popup');
+    $popup.attr('role', 'dialog');
     if (!Backdrop.settings.eu_cookie_compliance.popup_use_bare_css) {
       $popup.height(Backdrop.settings.eu_cookie_compliance.popup_height)
           .width(Backdrop.settings.eu_cookie_compliance.popup_width);
