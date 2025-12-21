@@ -321,7 +321,6 @@ function eu_cookie_compliance_preprocess_page(&$variables) {
       }
     }
 
-    //backdrop_add_js('function euCookieComplianceLoadScripts() {' . $load_disabled_scripts . 'Backdrop.attachBehaviors();}', array('type' => 'inline', 'scope' => $script_scope));
     backdrop_add_js('function euCookieComplianceLoadScripts() {' . $load_disabled_scripts . '}', array('type' => 'inline', 'scope' => $script_scope));
 
     // Add the cookie name inline, since Backdrop.settings will not be available
