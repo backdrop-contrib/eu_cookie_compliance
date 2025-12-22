@@ -229,7 +229,7 @@ function eu_cookie_compliance_preprocess_page(&$variables) {
 
       $popup_text_info = str_replace(array("\r", "\n"), '', filter_xss($popup_settings['popup_info']['value'], $allowed_tags));
       $popup_text_agreed = str_replace(array("\r", "\n"), '', filter_xss($popup_settings['popup_agreed']['value'], $allowed_tags));
-      $mobile_popup_text_info = str_replace(array("\r", "\n"), '', !empty($popup_settings['mobile_popup_info']['value']) ? filter_xss($popup_settings['mobile_popup_info']['value']. $allowed_tags) : '');
+      $mobile_popup_text_info = str_replace(array("\r", "\n"), '', !empty($popup_settings['mobile_popup_info']['value']) ? filter_xss($popup_settings['mobile_popup_info']['value'], $allowed_tags) : '');
       $withdraw_markup = str_replace(array("\r", "\n"), '', !empty($popup_settings['withdraw_message']['value']) ? filter_xss($popup_settings['withdraw_message']['value'], $allowed_tags) : '');
 
       $html_info = theme($popup_info_template, array(
