@@ -92,7 +92,6 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
 
   $roles = user_roles();
   $role_names = array_keys($roles);
-  $role_permissions = user_role_permissions($role_names);
   foreach ($roles as $name => $label) {
     $role_permissions = user_role_permissions(array($name));
     if (in_array($permission, $role_permissions)) {
