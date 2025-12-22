@@ -95,7 +95,7 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
   foreach ($roles as $name => $label) {
     $role_permissions = user_role_permissions(array($name));
     if (in_array($permission, $role_permissions)) {
-      $role_values[$name] = $label;
+      $role_values[] = $name;
     }
   }
 
@@ -117,7 +117,7 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
     '#type' => 'checkboxes',
     '#title' => t('Display the banner for'),
     '#options' => $roles,
-    '#default_value' => array_keys($role_values),
+    '#default_value' => $role_values,
   );
 
   $form['consent_option'] = array(
