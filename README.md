@@ -74,6 +74,7 @@ Current Maintainers
 -------------------
 
 - Graham Oliver (https://github.com/Graham-72).
+- Swampopus (https://github.com/swampopus
 - Seeking additional maintainers.
 
 Credits
