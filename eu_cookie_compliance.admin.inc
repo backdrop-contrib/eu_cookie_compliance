@@ -92,13 +92,13 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
 
   $roles = user_roles();
   $role_names = array_keys($roles);
-  $role_permissions = user_role_permissions($role_names);
   foreach ($roles as $name => $label) {
-    // Indicate whether the checkbox should be ticked.
+    $role_permissions = user_role_permissions(array($name));
     if (in_array($permission, $role_permissions)) {
       $role_values[] = $name;
     }
   }
+
 
   // Store $role_names for use when saving the data.
   $form['role_names'] = array(
@@ -832,12 +832,12 @@ function eu_cookie_compliance_admin_form_validate($form, &$form_state) {
 function eu_cookie_compliance_admin_form_submit($form, &$form_state) {
   $permission = 'display EU Cookie Compliance popup';
   $roles = $form_state['values']['see_the_banner'];
-  foreach ($roles as $rid => $value) {
+  foreach ($roles as $name => $value) {
     if ($value) {
-      user_role_grant_permissions($rid, array($permission));
+      user_role_grant_permissions($name, array($permission));
     }
     else {
-      user_role_revoke_permissions($rid, array($permission));
+      user_role_revoke_permissions($name, array($permission));
     }
   }
 }
