@@ -155,6 +155,9 @@
     // This fixes a problem with jQuery 1.9.
     var $popup = $('<div></div>').html(html);
     $popup.attr('id', 'sliding-popup');
+    $popup.attr('role', 'dialog'); 
+    $popup.attr('aria-label', 'EU Cookie Compliance (GDPR Compliance)');
+        
     if (!Backdrop.settings.eu_cookie_compliance.popup_use_bare_css) {
       $popup.height(Backdrop.settings.eu_cookie_compliance.popup_height)
           .width(Backdrop.settings.eu_cookie_compliance.popup_width);
