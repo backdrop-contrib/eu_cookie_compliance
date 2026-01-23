@@ -67,7 +67,7 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
     '#size' => 60,
     '#maxlength' => 220,
     '#required' => TRUE,
-    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend http://. The field supports tokens.'),
+    '#description' => t('Enter link to your privacy policy or other page that will explain cookies to your users. For external links prepend https://. The field supports tokens.'),
   );
   if (module_exists('token')) {
     $form['privacy']['eu_cookie_compliance']['popup_link']['#element_validate'][] = 'token_element_validate';
@@ -134,7 +134,7 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
 
   $form['consent_option']['eu_cookie_compliance']['info'] = array(
     '#type' => 'markup',
-    '#markup' => t("The EU General Data Protection Regulation (GDPR) (see <a href=\"https://www.eugdpr.org/\" target=\"_blank\">https://www.eugdpr.org/</a>) comes into enforcement from 25 May 2018 and introduces new requirements for web sites which handle information that can be used to identify individuals. The regulation underlines that consent must be <strong>unambiguous</strong> and involve a <strong>clear affirmative action</strong>. When evaluating how to best handle the requirements in the GDPR, remember that if you have a basic web site where the visitors don't log in, you always have the option to <strong>not process data that identifies individuals</strong>, in which case you may not need this module. Also note that GDPR applies to any electronic processing or storage of personal data that your organization may do, and simply installing a module may not be enough to become fully GDPR compliant."),
+    '#markup' => t("The EU General Data Protection Regulation (GDPR) came into enforcement on 25 May 2018, and introduces new requirements for web sites which handle information that can be used to identify individuals. The regulation underlines that consent must be <strong>unambiguous</strong> and involve a <strong>clear affirmative action</strong>. When evaluating how to best handle the requirements in the GDPR, remember that if you have a basic web site where the visitors don't log in, you always have the option to <strong>not process data that identifies individuals</strong>, in which case you may not need this module. Also note that GDPR applies to any electronic processing or storage of personal data that your organization may do, and simply installing a module may not be enough to become fully GDPR compliant."),
   );
 
   $form['consent_option']['eu_cookie_compliance']['method'] = array(
@@ -584,18 +584,18 @@ function eu_cookie_compliance_admin_form($form, &$form_state) {
       '#type' => 'checkbox',
       '#title' => t('Only display banner in EU countries.'),
       '#default_value' => isset($popup_settings['eu_only']) ? $popup_settings['eu_only'] : 0,
-      '#description' => t('You can limit the number of countries for which the banner is displayed by checking this option. If you want to provide a list of countries other than current EU states, you may place an array in <code>$conf[\'eu_cookie_compliance_eu_countries\']</code> in your <code>settings.php</code> file. Using the <a href="http://backdropcms.org/project/geoip">geoip</a> module or the <a href="http://backdropcms.org/project/smart_ip">smart_ip</a> module or the <a href="http://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
+      '#description' => t('You can limit the number of countries for which the banner is displayed by checking this option. If you want to provide a list of countries other than current EU states, you may place an array in <code>$conf[\'eu_cookie_compliance_eu_countries\']</code> in your <code>settings.php</code> file. Using the <a href="https://backdropcms.org/project/smart_ip">smart_ip</a> module or the <a href="https://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
     );
     $form['eu_only']['eu_cookie_compliance']['eu_only_js'] = array(
       '#type' => 'checkbox',
       '#title' => t('JavaScript-based (for Varnish): Only display banner in EU countries.'),
       '#default_value' => isset($popup_settings['eu_only_js']) ? $popup_settings['eu_only_js'] : 0,
-      '#description' => t('This option also works for visitors that bypass Varnish. You can limit the number of countries for which the banner is displayed by checking this option. If you want to provide a list of countries other than current EU states, you may place an array in <code>$conf[\'eu_cookie_compliance_eu_countries\']</code> in your <code>settings.php</code> file. Using the <a href="http://backdropcms.org/project/geoip">geoip</a> module or the <a href="http://backdropcms.org/project/smart_ip">smart_ip</a> module or the <a href="http://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
+      '#description' => t('This option also works for visitors that bypass Varnish. You can limit the number of countries for which the banner is displayed by checking this option. If you want to provide a list of countries other than current EU states, you may place an array in <code>$conf[\'eu_cookie_compliance_eu_countries\']</code> in your <code>settings.php</code> file. Using the <a href="https://backdropcms.org/project/smart_ip">smart_ip</a> module or the <a href="https://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
     );
   }
   else {
     $form['eu_only']['info'] = array(
-      '#markup' => t('You can choose to show the banner only to visitors from EU countries. In order to achieve this, you need to install the <a href="http://backdropcms.org/project/geoip">geoip</a> module or the <a href="http://backdropcms.org/project/smart_ip">smart_ip</a> module or enable the <a href="http://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
+      '#markup' => t('You can choose to show the banner only to visitors from EU countries. In order to achieve this, you need to install the <a href="https://backdropcms.org/project/smart_ip">smart_ip</a> module or enable the <a href="https://www.php.net/manual/en/function.geoip-country-code-by-name.php">geoip_country_code_by_name()</a> PHP function.'),
     );
   }
 
