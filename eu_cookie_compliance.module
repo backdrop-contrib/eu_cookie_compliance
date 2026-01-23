@@ -227,10 +227,10 @@ function eu_cookie_compliance_preprocess_page(&$variables) {
       // Add H2 and A to allowed tags for filtering markup.
       $allowed_tags = array('h2', 'p', 'a', 'em', 'strong', 'cite', 'blockquote', 'code', 'ul', 'ol', 'li');
 
-      $popup_text_info = str_replace(array("\r", "\n"), '', filter_xss_admin($popup_settings['popup_info']['value'], $allowed_tags));
-      $popup_text_agreed = str_replace(array("\r", "\n"), '', filter_xss_admin($popup_settings['popup_agreed']['value'], $allowed_tags));
-      $mobile_popup_text_info = str_replace(array("\r", "\n"), '', !empty($popup_settings['mobile_popup_info']['value']) ? filter_xss_admin($popup_settings['mobile_popup_info']['value'], $allowed_tags) : '');
-      $withdraw_markup = str_replace(array("\r", "\n"), '', !empty($popup_settings['withdraw_message']['value']) ? filter_xss_admin($popup_settings['withdraw_message']['value'], $allowed_tags) : '');
+      $popup_text_info = str_replace(array("\r", "\n"), '', filter_xss($popup_settings['popup_info']['value'], $allowed_tags));
+      $popup_text_agreed = str_replace(array("\r", "\n"), '', filter_xss($popup_settings['popup_agreed']['value'], $allowed_tags));
+      $mobile_popup_text_info = str_replace(array("\r", "\n"), '', !empty($popup_settings['mobile_popup_info']['value']) ? filter_xss($popup_settings['mobile_popup_info']['value']. $allowed_tags) : '');
+      $withdraw_markup = str_replace(array("\r", "\n"), '', !empty($popup_settings['withdraw_message']['value']) ? filter_xss($popup_settings['withdraw_message']['value'], $allowed_tags) : '');
 
       $html_info = theme($popup_info_template, array(
         'message' => check_markup($popup_text_info, $popup_settings['popup_info']['format']),
@@ -321,6 +321,7 @@ function eu_cookie_compliance_preprocess_page(&$variables) {
       }
     }
 
+    //backdrop_add_js('function euCookieComplianceLoadScripts() {' . $load_disabled_scripts . 'Backdrop.attachBehaviors();}', array('type' => 'inline', 'scope' => $script_scope));
     backdrop_add_js('function euCookieComplianceLoadScripts() {' . $load_disabled_scripts . '}', array('type' => 'inline', 'scope' => $script_scope));
 
     // Add the cookie name inline, since Backdrop.settings will not be available
@@ -429,21 +430,27 @@ function eu_cookie_compliance_json() {
 function eu_cookie_compliance_user_in_eu() {
   $geoip_match = FALSE;
   $eu_countries_default = array(
-    NULL, 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR',
+    'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR',
     'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO',
     'SI', 'SK', 'FI', 'SE', 'UK', 'GB', 'NO',
-  );
+  );  
   // Allow custom array of countries to be loaded from settings.php, defaulting
-  // to the array above.
-  $eu_countries = $config->get('eu_cookie_compliance_eu_countries');
-
+  // to the array above.  
+  $eu_countries = (settings_get('eu_cookie_compliance_eu_countries') ?? array());
+  
+  // If we don't have any cystom array set, use our default list.
+  if (!is_array($eu_countries) || count($eu_countries) == 0) {
+    $eu_countries = $eu_countries_default;
+  }
+  
   $country_code = extension_loaded('geoip') ? geoip_country_code_by_name(ip_address()) : '';
+  // TODO: There is no backdrop module for geoip at this time. Remove this?
   if (module_exists('geoip')) {
     $country_code = geoip_country_code();
   }
   elseif (module_exists('smart_ip')) {
     $smart_ip_session = smart_ip_session_get('smart_ip');
-    $country_code = isset($smart_ip_session['location']['country_code']) ? $smart_ip_session['location']['country_code'] : NULL;
+    $country_code = $smart_ip_session['location']['country_code'] ?? NULL;    
   }
 
   // If the CloudFlare provided country header is available, use it as a
@@ -457,6 +464,7 @@ function eu_cookie_compliance_user_in_eu() {
     $geoip_match = TRUE;
   }
   if ($country_code == '' || $country_code == '-') {
+    // We don't know, so default to assuming they are in the EU for safety.
     $geoip_match = TRUE;
   }
 
