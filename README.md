@@ -15,9 +15,9 @@ This is a port from the Drupal module of the same name.
 
 The module displays a pop-up at the bottom or at the top of pages to make
 users aware of the fact that cookies are being set. The user may then give
-his/her consent or move to a page that provides more details. Consent is given
+their consent or move to a page that provides more details. Consent is given
 by the user pressing the agree button or by continuing to browse the website.
-Once consent is given another pop-up appears with a thank you message.
+Once consent is given another pop-up optionally appears with a thank you message.
 
 The module provides a settings page where the pop-up can be customized. There
 are also template files for the pop-ups that can be overridden by your theme.
@@ -29,7 +29,7 @@ are also template files for the pop-ups that can be overridden by your theme.
 * Install this module using the official Backdrop CMS instructions at
   https://backdropcms.org/guide/modules.
 * Visit the configuration page under Administration > Configuration > system >
-  EU Cookie Compliance (admin/config/system/eu\_cookie\_compliance) and enter
+  EU Cookie Compliance (admin/config/system/eu_cookie_compliance) and enter
   the required information.
 * If desired, give the administer EU Cookie Compliance popup permissions that
   allow users of certain roles access the administration page. You can do so on
@@ -46,7 +46,7 @@ are also template files for the pop-ups that can be overridden by your theme.
   [jQuery Colorpicker module](http://backdropcms.org/project/jquery_colorpicker).
 * If you want to theme your pop-up override the themes in the template file.
 * If you want to show the message in EU countries only, install the
-  \[Smart IP module](https://backdropcms.org/project/smart\_ip] and enable that option on
+  [Smart IP module](https://backdropcms.org/project/smart_ip] and enable that option on
   the settings page.
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies
@@ -55,17 +55,17 @@ from being set.
 ## Documentation
 
 Additional documentation is located in the Wiki:
-https://github.com/backdrop-contrib/eu\_cookie\_compliance/wiki/Documentation.
+https://github.com/backdrop-contrib/eu_cookie_compliance/wiki/Documentation.
 
 ## Issues
 
 Bugs and Feature requests should be reported in the Issue Queue:
-https://github.com/backdrop-contrib/eu\_cookie\_compliance/issues.
+https://github.com/backdrop-contrib/eu_cookie_compliance/issues.
 
 ## Current Maintainers
 
-* \[Graham Oliver](https://github.com/Graham-72)
-* \[swampopus](https://github.com/swampopus)
+* [Graham Oliver](https://github.com/Graham-72)
+* [swampopus](https://github.com/swampopus)
 * Seeking additional maintainers.
 
 ## Credits
