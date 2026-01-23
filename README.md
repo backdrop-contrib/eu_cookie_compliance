@@ -1,5 +1,4 @@
-EU Cookie Compliance
-====================
+# EU Cookie Compliance
 
 The EU Cookie Compliance module enables a website to meet the
 requirements of the EU Directive on Privacy and Electronic Communications
@@ -20,80 +19,71 @@ his/her consent or move to a page that provides more details. Consent is given
 by the user pressing the agree button or by continuing to browse the website.
 Once consent is given another pop-up appears with a thank you message.
 
-The module provides a settings page where the pop-up can be customised. There
+The module provides a settings page where the pop-up can be customized. There
 are also template files for the pop-ups that can be overridden by your theme.
 
 
-Installation
-------------
 
-- Install this module using the official Backdrop CMS instructions at
+## Installation
+
+* Install this module using the official Backdrop CMS instructions at
   https://backdropcms.org/guide/modules.
-
-- Visit the configuration page under Administration > Configuration > system >
-  EU Cookie Compliance (admin/config/system/eu_cookie_compliance) and enter
+* Visit the configuration page under Administration > Configuration > system >
+  EU Cookie Compliance (admin/config/system/eu\_cookie\_compliance) and enter
   the required information.
-
-- If desired, give the administer EU Cookie Compliance popup permissions that
+* If desired, give the administer EU Cookie Compliance popup permissions that
   allow users of certain roles access the administration page. You can do so on
   the admin/user/permissions page.
 
-    - There is also a 'display EU Cookie Compliance popup' permission that helps
-      you show the popup to the roles you desire.
+  * There is also a 'display EU Cookie Compliance popup' permission that helps
+    you show the popup to the roles you desire.
 
-- You may want to create a page that would explain how your site uses cookies.
+* You may want to create a page that would explain how your site uses cookies.
   Alternatively, if you have a privacy policy, you can link the pop-up to that
   page (see next step).
-
-- If you want to customise the pop-up background and text color  type
+* If you want to customize the pop-up background and text color  type
   in the hex values. Once it exists, you can also use the
   [jQuery Colorpicker module](http://backdropcms.org/project/jquery_colorpicker).
-
-- If you want to theme your pop-up override the themes in the template file.
-
-- If you want to show the message in EU countries only, install the
-  [GeoIP module](http://backdropcms.org/project/geoip] and enable that option on
+* If you want to theme your pop-up override the themes in the template file.
+* If you want to show the message in EU countries only, install the
+  \[Smart IP module](https://backdropcms.org/project/smart\_ip] and enable that option on
   the settings page.
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies
 from being set.
 
-Documentation
--------------
+## Documentation
 
 Additional documentation is located in the Wiki:
-https://github.com/backdrop-contrib/eu_cookie_compliance/wiki/Documentation.
+https://github.com/backdrop-contrib/eu\_cookie\_compliance/wiki/Documentation.
 
-Issues
-------
+## Issues
 
 Bugs and Feature requests should be reported in the Issue Queue:
-https://github.com/backdrop-contrib/eu_cookie_compliance/issues.
+https://github.com/backdrop-contrib/eu\_cookie\_compliance/issues.
 
-Current Maintainers
--------------------
+## Current Maintainers
 
-- Graham Oliver (https://github.com/Graham-72).
-- Swampopus (https://github.com/swampopus
-- Seeking additional maintainers.
+* \[Graham Oliver](https://github.com/Graham-72)
+* \[swampopus](https://github.com/swampopus)
+* Seeking additional maintainers.
 
-Credits
--------
+## Credits
 
-- Ported to Backdrop CMS by [Graham Oliver](https://github.com/Graham-72).
-- Maintained for Drupal by [Sven Berg Ryen](https://drupal.org/u/svenryen).
-- Maintained for Drupal by [Marcin Pajdzik](https://drupal.org/u/marcin-pajdzik).
-- Maintained for Drupal by [Achton Smidt Winther](https://drupal.org/u/achton).
-- Maintained for Drupal by [id.tornado](https://drupal.org/u/id.tornado).
-- Maintained for Drupal by [mibfire](https://drupal.org/u/mibfire).
+* Ported to Backdrop CMS by [Graham Oliver](https://github.com/Graham-72).
+* Maintained for Drupal by [Sven Berg Ryen](https://drupal.org/u/svenryen).
+* Maintained for Drupal by [Marcin Pajdzik](https://drupal.org/u/marcin-pajdzik).
+* Maintained for Drupal by [Achton Smidt Winther](https://drupal.org/u/achton).
+* Maintained for Drupal by [id.tornado](https://drupal.org/u/id.tornado).
+* Maintained for Drupal by [mibfire](https://drupal.org/u/mibfire).
 
 ### Acknowledgement
 
 This port to Backdrop would not, of course, be possible without all the work
 done by the developers and maintainers of the Drupal module.
 
-License
--------
+## License
 
 This project is GPL v2 software. See the LICENSE.txt file in this directory for
 complete text.
+
