@@ -46,16 +46,12 @@ are also template files for the pop-ups that can be overridden by your theme.
   [jQuery Colorpicker module](http://backdropcms.org/project/jquery_colorpicker).
 * If you want to theme your pop-up override the themes in the template file.
 * If you want to show the message in EU countries only, install the
-  [Smart IP module](https://backdropcms.org/project/smart_ip] and enable that option on
+  [Smart IP module](https://backdropcms.org/project/smart_ip) and enable that option on
   the settings page.
 
 NOTICE: The module does not audit your cookies nor does it prevent cookies
 from being set.
 
-## Documentation
-
-Additional documentation is located in the Wiki:
-https://github.com/backdrop-contrib/eu_cookie_compliance/wiki/Documentation.
 
 ## Issues
 
